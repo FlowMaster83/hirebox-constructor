@@ -89,3 +89,6 @@ container.addEventListener("input", function (e) {
     row.querySelector(".chart-fill").style.width = value + "%";
   }
 });
+
+
+console.log(1)
