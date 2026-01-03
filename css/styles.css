@@ -1,177 +1,169 @@
-/* Общие настройки */
 :root {
   --layout-max-width: 1200px;
   --layout-padding: 20px;
-  --label-width: 220px;
+  --label-width: 240px;
   --header-height: 72px;
-  --header-border: 1px;
+  --primary-blue: #0059b3;
+  --bg-color: #f9f9f9;
 }
 
 body {
   font-family: "Geologica", sans-serif;
   font-size: 14px;
-  background: #f9f9f9;
+  background: var(--bg-color);
+  color: #333;
 }
 
-main {
-  padding-top: calc(var(--header-height) + var(--header-border));
-}
-
-.user-input,
-.clear-btn,
-.scale-row button {
-  flex-shrink: 0;
-}
-
-.main-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: red;
-}
-
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 100;
-  background-color: #f9f9f9;
-  height: var(--header-height);
-  box-sizing: border-box;
-}
+main { padding-top: calc(var(--header-height) + 30px); }
 
 .layout {
   max-width: var(--layout-max-width);
-  margin: 0 auto; /* центрирование */
-  padding-left: var(--layout-padding);
-  padding-right: var(--layout-padding);
+  margin: 0 auto;
+  padding: 0 var(--layout-padding);
+}
+
+/* Header */
+.header {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  z-index: 100;
+  background: #fff;
+  height: var(--header-height);
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
 }
 
 .header .layout {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  height: 100%;
-}
-
-.logo-sign {
-  font-size: small;
-}
-
-.header-options {
-  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
+  width: 100%;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 12px; /* расстояние между шкалами */
-}
+.main-logo { color: red; margin: 0; font-size: 22px; }
 
-/* Каждая шкала в одной строке */
+.header-options { display: flex; align-items: center; gap: 10px; }
 
-.scales {
-  list-style-position: inside;
-  margin: 0;
-  padding-left: 0;
-}
+/* Рядок шкали */
+.container { display: flex; flex-direction: column; gap: 20px; }
 
 .scale-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 20px;
 }
 
-/* Название и значение */
 .label {
-  flex-shrink: 0; /* не сжимается */
-  display: flex;
-  align-items: center;
-  gap: 6px; /* расстояние между текстом и значением */
-  white-space: nowrap; /* запрещаем перенос текста */
+  flex-shrink: 0;
   width: var(--label-width);
+  font-weight: 400;
 }
 
-/* Шкала растягивается */
-.chart-wrapper {
-  flex: 1; /* занимает всё оставшееся место */
-  min-width: 120px; /* минимальная ширина шкалы */
-  position: relative;
-  height: 28px;
-}
-
-/* Инпут фиксированной ширины */
-.user-input {
-  width: 50px;
-  height: 28px;
-  margin-left: 8px;
-  margin-right: 10px;
-  text-align: center;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 0 4px;
-
-  /* убираем стрелки */
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: textfield;
-}
-
-.user-input::-webkit-inner-spin-button,
-.user-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+.percent-value { font-weight: 700; color: var(--primary-blue); }
 
 /* Шкала */
-.chart {
-  border-radius: 4px;
-  background-color: #ccc;
-  padding: 0;
+.chart-wrapper {
+  flex: 1;
+  position: relative;
+  height: 24px;
 }
 
 .chart-track {
   width: 100%;
-  height: 24px;
-  background-color: #ebe9e9;
-  border-radius: 3px;
+  height: 100%;
+  background-color: #eee;
+  border-radius: 4px;
   overflow: hidden;
   position: relative;
 }
 
-/* Контейнер для вертикальных полосок */
 .chart-fill {
   height: 100%;
   width: 0%;
-  background: linear-gradient(to right, #7ec0ee, #0059b3); /* синий градиент */
+  background: linear-gradient(to right, #7ec0ee, var(--primary-blue));
   transition: width 0.3s ease;
-  border-radius: 4px 0 0 4px;
 }
 
-/* Деления */
+/* Підписи (Ticks) */
 .ticks {
   position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  height: 16px;
-  font-size: 11px;
-  color: #656565;
-  pointer-events: none;
+  top: 28px; left: 0; right: 0;
+  height: 12px;
 }
 
 .tick {
-  font-size: 8px;
   position: absolute;
   transform: translateX(-50%);
+  font-size: 9px;
+  color: #888;
 }
 
-.tick.strong {
+/* Елементи керування */
+.user-input {
+  width: 50px;
+  height: 32px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   font-weight: 700;
-  color: #000;
+}
+
+button {
+  height: 32px;
+  padding: 0 12px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 12px;
+  transition: 0.2s;
+}
+
+button:hover { background: #f0f0f0; }
+
+.clear-btn { color: #d93025; }
+
+/* ==========================================================================
+   АДАПТИВНІСТЬ (Планшети та Мобільні)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  /* 1. Ховаємо STAR, POINTER, CIRCLE */
+  .scale-row button:not(.clear-btn) {
+    display: none;
+  }
+
+  .scale-row {
+    flex-wrap: wrap; /* Дозволяємо назві бути зверху */
+    padding-bottom: 25px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .label {
+    width: 100%; /* Назва зверху на весь рядок */
+    margin-bottom: 8px;
+    font-size: 15px;
+  }
+
+  /* 2. Шкала + відступ 20px + Інпут + відступ 20px + CLEAR */
+  .chart-wrapper {
+    margin-right: 20px; /* Відступ від шкали до інпуту */
+  }
+
+  .user-input {
+    margin-right: 5px; /* Відступ від інпуту до кнопки CLEAR */
+    height: 40px; /* Збільшена висота для зручності пальців */
+    width: 60px;
+  }
+
+  .clear-btn {
+    height: 40px; /* Збільшена висота для зручності пальців */
+    padding: 0 5px;
+    font-weight: 700;
+  }
+
+  /* Коригування шапки */
+  .header { height: auto; padding: 15px 0; }
+  .header .layout { flex-direction: column; gap: 15px; }
+  main { padding-top: 150px; }
 }
