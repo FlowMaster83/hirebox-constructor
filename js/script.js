@@ -124,3 +124,26 @@ const onClickClearAllBtn = () => {
 };
 
 clearAllBtn.addEventListener("click", onClickClearAllBtn);
+
+const fillBtn = document.querySelector(".fill-btn");
+const select = document.querySelector(".user-select");
+
+fillBtn.addEventListener("click", () => {
+  const value = Number(select.value);
+
+  // защита на случай пустого или некорректного значения
+  if (isNaN(value) || value < 0 || value > 100) return;
+
+  const rows = document.querySelectorAll(".scale-row");
+
+  rows.forEach(row => {
+    const input = row.querySelector(".user-input");
+    const percent = row.querySelector(".percent-value");
+    const fill = row.querySelector(".chart-fill");
+
+    input.value = value;
+    percent.textContent = value;
+    fill.style.width = value + "%";
+  });
+});
+

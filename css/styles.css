@@ -18,6 +18,13 @@ body {
   font-size: small;
 }
 
+.header-options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
 .container {
   display: flex;
   flex-direction: column;
