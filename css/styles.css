@@ -10,8 +10,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 30px auto;
   color: red;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .logo-sign {
@@ -133,11 +139,4 @@ body {
 .tick.strong {
   font-weight: 700;
   color: #000;
-}
-
-.top {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
 }
