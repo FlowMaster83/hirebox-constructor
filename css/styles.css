@@ -1,6 +1,8 @@
+/* КОРЕНЕВІ СКИДАННЯ */
 :root {
   --layout-max-width: 1200px;
   --layout-padding: 20px;
+
   --header-height: 72px;
 
   --primary-blue: #0059b3;
@@ -9,13 +11,9 @@
   --tick-step: 10;
   --tick-width: 1px;
   --tick-color: rgba(0, 0, 0, 0.15);
-  --header-height: 72px;
 }
 
-/* =========================================================
-   BASE
-========================================================= */
-
+/* БАЗОВІ СКИДАННЯ */
 *,
 *::before,
 *::after {
@@ -30,6 +28,7 @@ body {
   color: #333;
 }
 
+/* РОЗТАШУВАННЯ НА СТОРІНЦІ */
 main {
   padding-top: calc(var(--header-height) + 30px);
   padding-bottom: calc(var(--header-height) + 30px);
@@ -41,10 +40,7 @@ main {
   padding: 0 var(--layout-padding);
 }
 
-/* =========================================================
-   HEADER
-========================================================= */
-
+/* ХЕДЕР */
 .header {
   position: fixed;
   top: 0;
@@ -70,6 +66,13 @@ main {
   margin-right: auto;
   font-size: 22px;
   color: red;
+
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.main-logo:hover {
+  opacity: 0.85;
 }
 
 .header-options {
@@ -95,39 +98,29 @@ main {
   cursor: pointer;
 }
 
-/* =========================================================
-   CONTAINER
-========================================================= */
-
+/* ГОЛОВНИЙ КОНТЕЙНЕР */
 .container {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-/* =========================================================
-  SCALE ROW — DESKTOP (FLEX)
-========================================================= */
-
+/* ОСНОВНИЙ КОМПОНЕНТ */
 .scale-row {
   display: grid;
-
   grid-template-columns: 240px 1fr auto;
   grid-template-areas: "label value actions";
-
   column-gap: 12px;
   align-items: center;
+
+  flex: 1;
+  min-width: 0;
 }
 
-/* ---------- HEADER (label) ---------- */
-
 .scale-row .label {
-  flex-shrink: 0;
   grid-area: label;
   white-space: nowrap;
-  /* убрать при гридах */
   width: 240px;
-  /* убрать при гридах */
 }
 
 .percent-value {
@@ -135,31 +128,15 @@ main {
   color: var(--primary-blue);
 }
 
-/* ---------- VALUE (scale + input) ---------- */
-
+/* ЗНАЧЕННЯ ШКАЛ */
 .scale-row .value {
-  display: flex;
   grid-area: value;
+  display: flex;
   align-items: center;
   gap: 24px;
-  flex: 1; /* шкала тянется */
-  min-width: 0;
-}
-
-.scale-row .actions {
-  grid-area: actions;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-}
-
-.scale-row {
   flex: 1;
   min-width: 0;
 }
-
-/* шкала */
 
 .chart-wrapper {
   flex: 1;
@@ -177,8 +154,7 @@ main {
   overflow: visible;
 }
 
-/* вертикальные отметки */
-
+/* МІТКИ ШКАЛ */
 .chart-track::before {
   content: "";
   position: absolute;
@@ -190,59 +166,48 @@ main {
 
   background-image: linear-gradient(
     to right,
-
     transparent 0%,
     transparent calc(10% - var(--tick-width)),
     var(--tick-color) calc(10% - var(--tick-width)),
     var(--tick-color) 10%,
-
     transparent 10%,
     transparent calc(20% - var(--tick-width)),
     var(--tick-color) calc(20% - var(--tick-width)),
     var(--tick-color) 20%,
-
     transparent 20%,
     transparent calc(30% - var(--tick-width)),
     var(--tick-color) calc(30% - var(--tick-width)),
     var(--tick-color) 30%,
-
     transparent 30%,
     transparent calc(40% - var(--tick-width)),
     var(--tick-color) calc(40% - var(--tick-width)),
     var(--tick-color) 40%,
-
     transparent 40%,
     transparent calc(50% - var(--tick-width)),
     var(--tick-color) calc(50% - var(--tick-width)),
     var(--tick-color) 50%,
-
     transparent 50%,
     transparent calc(60% - var(--tick-width)),
     var(--tick-color) calc(60% - var(--tick-width)),
     var(--tick-color) 60%,
-
     transparent 60%,
     transparent calc(70% - var(--tick-width)),
     var(--tick-color) calc(70% - var(--tick-width)),
     var(--tick-color) 70%,
-
     transparent 70%,
     transparent calc(80% - var(--tick-width)),
     var(--tick-color) calc(80% - var(--tick-width)),
     var(--tick-color) 80%,
-
     transparent 80%,
     transparent calc(90% - var(--tick-width)),
     var(--tick-color) calc(90% - var(--tick-width)),
     var(--tick-color) 90%,
-
     transparent 90%,
     transparent 100%
   );
 }
 
-/* заполнение */
-
+/* ЗАПОВНЕННЯ ШКАЛ */
 .chart-fill {
   position: relative;
   z-index: 2;
@@ -256,8 +221,7 @@ main {
   transition: width 0.3s ease;
 }
 
-/* проценты под шкалой */
-
+/* ЧИСЛОВІ МІТКИ ШКАЛ*/
 .ticks {
   position: absolute;
   top: 28px;
@@ -273,8 +237,7 @@ main {
   color: #888;
 }
 
-/* инпут */
-
+/* ІНПУТ */
 .user-input {
   width: 50px;
   height: 32px;
@@ -286,8 +249,16 @@ main {
   border-radius: 4px;
 }
 
-/* ---------- ACTIONS ---------- */
+/* ДІЇ */
+.scale-row .actions {
+  grid-area: actions;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
 
+/* КНОПКИ */
 button {
   height: 32px;
   padding: 0 12px;
@@ -310,10 +281,7 @@ button:hover {
   color: #d93025;
 }
 
-/* =========================================================
-   MARKERS
-========================================================= */
-
+/* МАРКЕРИ */
 .chart-marker {
   position: absolute;
   top: 50%;
@@ -337,29 +305,21 @@ button:hover {
   display: block;
 }
 
-.marker-solid {
-  width: 50px;
-  height: 50px;
-  border: 3px solid #ff0000;
-  border-radius: 50%;
-}
-
+.marker-solid,
 .marker-dotted {
   width: 50px;
   height: 50px;
-  border: 3px dashed #ff0000;
   border-radius: 50%;
+  border: 3px solid #ff0000;
+}
+
+.marker-dotted {
+  border-style: dashed;
 }
 
 .marker-star {
   width: 70px;
   height: 70px;
-}
-
-.marker-star .marker-svg {
-  width: 100%;
-  height: 100%;
-  color: #ff0000;
 }
 
 .marker-check {
@@ -369,7 +329,7 @@ button:hover {
   left: calc(100% + 8px);
 }
 
-/* STATE B — compact layout, full scale */
+/* МЕДІА ЗАПИТИ */
 @media (max-width: 1024px) {
   .scale-row {
     grid-template-columns: 240px 1fr;
@@ -380,7 +340,7 @@ button:hover {
   }
 
   .scale-row .actions {
-    justify-self: start; /* кнопки начинаются под шкалой */
+    justify-self: start;
     width: 100%;
   }
 
@@ -398,7 +358,6 @@ button:hover {
   }
 }
 
-/* STATE C — stacked layout, simplified scale */
 @media (max-width: 640px) {
   .scale-row {
     grid-template-columns: 1fr;
@@ -410,28 +369,25 @@ button:hover {
   }
 
   .scale-row .label {
-    white-space: normal; /* ⬅ разрешаем перенос */
-    width: auto; /* ⬅ убираем фиксацию */
+    white-space: normal;
+    width: auto;
   }
 
   .tick {
     display: none;
   }
 
-  .tick:nth-child(1),   /* 0% */
-  .tick:nth-child(6),   /* 50% */
+  .tick:nth-child(1),
+  .tick:nth-child(6),
   .tick:nth-child(11) {
-    /* 100% */
     display: block;
   }
 
   .chart-track::before {
     background-image: none;
-
     left: 50%;
     width: var(--tick-width);
     background-color: var(--tick-color);
-
     transform: translateX(-50%);
   }
 

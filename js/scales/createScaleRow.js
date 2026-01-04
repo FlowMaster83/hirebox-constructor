@@ -1,47 +1,10 @@
-/* =========================
-   CONSTANTS
-========================= */
+// ВСЯ логіка однієї шкали
 
-const LABELS = [
-  "1. Передбачуваність",
-  "2. Енергія",
-  "3. Ентузіазм",
-  "4. Наполегливість",
-  "5. Самоконтроль",
-  "6. Цілеспрямованість",
-  "7. Комунікація",
-  "8. Взаєморозуміння",
-  "9. Впевненість в собі",
-  "10. Об'єктивність",
-  "11. Толерантність",
-  "12. Організованість",
-  "13. Інтерес",
-  "14. Обмін",
-  "15. Результати",
-  "16. Кваліфікації",
-  "17. Командний дух",
-  "18. Основні принципи",
-  "19. Тиск на роботі",
-  "20. Готовність до роботи",
-];
+import { clamp } from "../utils/clamp.js";
 
-const container = document.getElementById("scales-container");
-
-/* =========================
-   HELPERS
-========================= */
-
-const clamp = (val, min, max) => Math.min(max, Math.max(min, val));
-
-/* =========================
-   SCALE ROW
-========================= */
-
-function createScaleRow(labelTitle) {
+export function createScaleRow(labelTitle, container) {
   const row = document.createElement("div");
   row.className = "scale-row";
-
-  /* ---------- TEMPLATE ---------- */
 
   row.innerHTML = `
     <div class="label">
@@ -55,9 +18,8 @@ function createScaleRow(labelTitle) {
 
           <div class="chart-marker marker-solid"></div>
           <div class="chart-marker marker-dotted"></div>
-
           <div class="chart-marker marker-star">
-            <svg
+          <svg
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 480 519"
   class="marker-svg"
@@ -94,11 +56,9 @@ function createScaleRow(labelTitle) {
     />
   </g>
 </svg>
-
-          </div>
-
+</div>
           <div class="chart-marker marker-check">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
   <path
     d="M4 13l5 5 11-11"
     fill="none"
@@ -108,12 +68,15 @@ function createScaleRow(labelTitle) {
     stroke-linejoin="round"
   />
 </svg>
-          </div>
+</div>
 
           <div class="ticks">
-            ${Array.from({ length: 11 }, (_, i) => `
+            ${Array.from(
+              { length: 11 },
+              (_, i) => `
               <span class="tick" style="left:${i * 10}%">${i * 10}</span>
-            `).join("")}
+            `
+            ).join("")}
           </div>
         </div>
       </div>
@@ -136,8 +99,6 @@ function createScaleRow(labelTitle) {
     </div>
   `;
 
-  /* ---------- ELEMENTS ---------- */
-
   const input = row.querySelector(".user-input");
   const fill = row.querySelector(".chart-fill");
   const percentLabel = row.querySelector(".percent-value");
@@ -156,43 +117,29 @@ function createScaleRow(labelTitle) {
     check: row.querySelector(".check-btn"),
   };
 
-  /* =========================
-     VALUE MODEL
-  ========================= */
-
   const getValue = () => {
     const raw = Number(input.value);
-    if (!raw) return null; // "", 0, NaN → нет значения
+    if (!raw) return null;
     return clamp(raw, 1, 100);
   };
 
   const getMarkerLeft = (type) => {
     const val = getValue();
     const pos = val === null ? 0 : val;
-    return type === "check"
-      ? `calc(${pos}% + 8px)`
-      : `${pos}%`;
+    return type === "check" ? `calc(${pos}% + 8px)` : `${pos}%`;
   };
-
-  /* =========================
-     VISUAL SYNC
-  ========================= */
 
   const syncVisuals = () => {
     const val = getValue();
-
     fill.style.width = `${val ?? 0}%`;
     percentLabel.textContent = val ?? 0;
 
     Object.entries(markers).forEach(([type, marker]) => {
-      if (!marker.classList.contains("active")) return;
-      marker.style.left = getMarkerLeft(type);
+      if (marker.classList.contains("active")) {
+        marker.style.left = getMarkerLeft(type);
+      }
     });
   };
-
-  /* =========================
-     INPUT
-  ========================= */
 
   input.addEventListener("focus", () => input.select());
 
@@ -209,10 +156,6 @@ function createScaleRow(labelTitle) {
       syncVisuals();
     }
   });
-
-  /* =========================
-     MARKERS
-  ========================= */
 
   const toggleMarker = (type) => {
     const marker = markers[type];
@@ -242,10 +185,6 @@ function createScaleRow(labelTitle) {
   buttons.dotted.addEventListener("click", () => toggleMarker("dotted"));
   buttons.check.addEventListener("click", () => toggleMarker("check"));
 
-  /* =========================
-     CLEAR ROW
-  ========================= */
-
   row.querySelector(".clear-btn").addEventListener("click", () => {
     input.value = "";
     fill.style.width = "0%";
@@ -264,51 +203,3 @@ function createScaleRow(labelTitle) {
 
   container.appendChild(row);
 }
-
-/* =========================
-   INIT
-========================= */
-
-LABELS.forEach(createScaleRow);
-
-/* =========================
-   HEADER CONTROLS
-========================= */
-
-const mainSelect = document.getElementById("main-select");
-const fillBtn = document.querySelector(".fill-btn");
-const clearAllBtn = document.querySelector(".clear-all-btn");
-
-/* --- Fill button state --- */
-
-const updateFillButtonState = () => {
-  fillBtn.disabled = !mainSelect.value || Number(mainSelect.value) < 1;
-};
-
-mainSelect.addEventListener("change", updateFillButtonState);
-updateFillButtonState();
-
-/* --- FILL ALL --- */
-
-fillBtn.addEventListener("click", () => {
-  const val = Number(mainSelect.value);
-  if (!val || val < 1 || val > 100) return;
-
-  document.querySelectorAll(".scale-row").forEach((row) => {
-    const input = row.querySelector(".user-input");
-    input.value = val;
-    input.dispatchEvent(new Event("input", { bubbles: true }));
-    input.dispatchEvent(new Event("blur", { bubbles: true }));
-  });
-});
-
-/* --- CLEAR ALL --- */
-
-clearAllBtn.addEventListener("click", () => {
-  document
-    .querySelectorAll(".scale-row .clear-btn")
-    .forEach((btn) => btn.click());
-
-  mainSelect.value = "";
-  updateFillButtonState();
-});
