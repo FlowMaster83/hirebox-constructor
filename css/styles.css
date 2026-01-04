@@ -1,16 +1,29 @@
 :root {
   --layout-max-width: 1200px;
   --layout-padding: 20px;
-  --label-width: 240px;
   --header-height: 72px;
+
   --primary-blue: #0059b3;
   --bg-color: #f9f9f9;
+
   --tick-step: 10;
   --tick-width: 1px;
   --tick-color: rgba(0, 0, 0, 0.15);
+  --header-height: 72px;
+}
+
+/* =========================================================
+   BASE
+========================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
+  margin: 0;
   font-family: "Geologica", sans-serif;
   font-size: 14px;
   background: var(--bg-color);
@@ -28,49 +41,63 @@ main {
   padding: 0 var(--layout-padding);
 }
 
-/* Header */
+/* =========================================================
+   HEADER
+========================================================= */
+
 .header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100;
-  background: #fff;
   height: var(--header-height);
+  z-index: 100;
+
+  background: #fff;
   border-bottom: 1px solid #eee;
+
   display: flex;
   align-items: center;
 }
 
 .header .layout {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
 }
 
 .main-logo {
-  color: red;
-  margin: 0;
+  margin-right: auto;
   font-size: 22px;
+  color: red;
 }
 
 .header-options {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+}
+
+.header-options p {
+  margin: 0;
+  font-size: 12px;
+  opacity: 0.8;
 }
 
 .user-select {
   height: 32px;
   padding: 0 12px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  background: #fff;
-  border-radius: 4px;
   font-size: 12px;
-  transition: 0.2s;
+
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
 }
+
+/* =========================================================
+   CONTAINER
+========================================================= */
 
 .container {
   display: flex;
@@ -78,16 +105,29 @@ main {
   gap: 20px;
 }
 
+/* =========================================================
+  SCALE ROW — DESKTOP (FLEX)
+========================================================= */
+
 .scale-row {
-  display: flex;
+  display: grid;
+
+  grid-template-columns: 240px 1fr auto;
+  grid-template-areas: "label value actions";
+
+  column-gap: 12px;
   align-items: center;
-  gap: 10px;
 }
 
-.label {
+/* ---------- HEADER (label) ---------- */
+
+.scale-row .label {
   flex-shrink: 0;
-  width: var(--label-width);
-  font-weight: 400;
+  grid-area: label;
+  white-space: nowrap;
+  /* убрать при гридах */
+  width: 240px;
+  /* убрать при гридах */
 }
 
 .percent-value {
@@ -95,30 +135,58 @@ main {
   color: var(--primary-blue);
 }
 
+/* ---------- VALUE (scale + input) ---------- */
+
+.scale-row .value {
+  display: flex;
+  grid-area: value;
+  align-items: center;
+  gap: 10px;
+  flex: 1; /* шкала тянется */
+  min-width: 0;
+}
+
+.scale-row .actions {
+  grid-area: actions;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.scale-row {
+  flex: 1;
+  min-width: 0;
+}
+
+/* шкала */
+
 .chart-wrapper {
   flex: 1;
   height: 24px;
+  min-width: 0;
 }
 
 .chart-track {
   position: relative;
-  overflow: visible;
   width: 100%;
   height: 100%;
+
   background-color: #eee;
   border-radius: 4px;
   overflow: visible;
-  position: relative;
 }
 
-/* відмітки на шкалі з кроком в 10% */
+/* вертикальные отметки */
+
 .chart-track::before {
-  transform: translateX(0.5px);
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 1;
+
+  transform: translateX(0.5px);
 
   background-image: linear-gradient(
     to right,
@@ -173,17 +241,22 @@ main {
   );
 }
 
+/* заполнение */
 
 .chart-fill {
   position: relative;
   z-index: 2;
+
   width: 0%;
   height: 100%;
+
   background: linear-gradient(to right, #7ec0ee, var(--primary-blue));
-  transition: width 0.3s ease;
-  overflow: hidden;
   border-radius: 4px;
+
+  transition: width 0.3s ease;
 }
+
+/* проценты под шкалой */
 
 .ticks {
   position: absolute;
@@ -200,25 +273,33 @@ main {
   color: #888;
 }
 
+/* инпут */
+
 .user-input {
-  margin-left: 50px;
   width: 50px;
   height: 32px;
+
   text-align: center;
+  font-weight: 700;
+
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-weight: 700;
 }
+
+/* ---------- ACTIONS ---------- */
 
 button {
   height: 32px;
   padding: 0 12px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  background: #fff;
-  border-radius: 4px;
+
   font-size: 12px;
-  transition: 0.2s;
+  cursor: pointer;
+
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+
+  transition: background 0.2s;
 }
 
 button:hover {
@@ -229,15 +310,21 @@ button:hover {
   color: #d93025;
 }
 
+/* =========================================================
+   MARKERS
+========================================================= */
+
 .chart-marker {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
+
   pointer-events: none;
   opacity: 0;
   z-index: 3;
-  transition: opacity 0.2s ease, left 0.1s linear;
+
   color: #ff0000;
+  transition: opacity 0.2s ease, left 0.1s linear;
 }
 
 .chart-marker.active {
@@ -255,7 +342,6 @@ button:hover {
   height: 50px;
   border: 3px solid #ff0000;
   border-radius: 50%;
-  box-sizing: border-box;
 }
 
 .marker-dotted {
@@ -263,7 +349,6 @@ button:hover {
   height: 50px;
   border: 3px dashed #ff0000;
   border-radius: 50%;
-  box-sizing: border-box;
 }
 
 .marker-star {
@@ -274,7 +359,7 @@ button:hover {
 .marker-star .marker-svg {
   width: 100%;
   height: 100%;
-  color: #ff0000; /* SVG берёт цвет через currentColor */
+  color: #ff0000;
 }
 
 .marker-check {
@@ -284,8 +369,75 @@ button:hover {
   left: calc(100% + 8px);
 }
 
-.marker-check svg {
-  width: 100%;
-  height: 100%;
-  display: block;
+/* STATE B — compact layout, full scale */
+@media (max-width: 1024px) {
+  .scale-row {
+    grid-template-columns: 240px 1fr;
+    grid-template-areas:
+      "label value"
+      ".     actions";
+    row-gap: 20px;
+  }
+
+  .scale-row .actions {
+    justify-self: start; /* кнопки начинаются под шкалой */
+    width: 100%;
+  }
+
+  .scale-row .actions button {
+    flex: 1;
+    height: 44px;
+  }
+
+  .scale-row .actions .clear-btn {
+    flex: 2;
+  }
+}
+
+/* STATE C — stacked layout, simplified scale */
+@media (max-width: 640px) {
+  .scale-row {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "label"
+      "value"
+      "actions";
+    row-gap: 12px;
+  }
+
+  .scale-row .label {
+    white-space: normal; /* ⬅ разрешаем перенос */
+    width: auto; /* ⬅ убираем фиксацию */
+  }
+
+  .tick {
+    display: none;
+  }
+
+  .tick:nth-child(1),   /* 0% */
+  .tick:nth-child(6),   /* 50% */
+  .tick:nth-child(11) {
+    /* 100% */
+    display: block;
+  }
+
+  .chart-track::before {
+    background-image: none;
+
+    left: 50%;
+    width: var(--tick-width);
+    background-color: var(--tick-color);
+
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 512px) {
+  :root {
+    --header-height: 60px;
+  }
+
+  .main-logo {
+    font-size: 18px;
+  }
 }

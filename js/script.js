@@ -41,11 +41,14 @@ function createScaleRow(labelTitle) {
   const row = document.createElement("div");
   row.className = "scale-row";
 
-  row.innerHTML = `
-      <div class="label">
-        ${labelTitle}: <span class="percent-value">0</span>
-      </div>
+  /* ---------- TEMPLATE ---------- */
 
+  row.innerHTML = `
+    <div class="label">
+      ${labelTitle}: <span class="percent-value">0</span>
+    </div>
+
+    <div class="value">
       <div class="chart-wrapper">
         <div class="chart-track">
           <div class="chart-fill"></div>
@@ -55,18 +58,18 @@ function createScaleRow(labelTitle) {
 
           <div class="chart-marker marker-star">
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 480 519"
-              class="marker-svg"
-            >
-              <g
-                transform="translate(0,519) scale(0.1,-0.1)"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="120"
-              >
-                <path
-                  d="M1741 4489 c-1 -3 5 -106 13 -230 8 -123 17 -278 21 -344 3 -66 13
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 480 519"
+  class="marker-svg"
+>
+  <g
+    transform="translate(0,519) scale(0.1,-0.1)"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="120"
+  >
+    <path
+      d="M1741 4489 c-1 -3 5 -106 13 -230 8 -123 17 -278 21 -344 3 -66 13
 -236 21 -378 9 -142 13 -264 10 -272 -7 -18 -82 -20 -219 -5 -51 5 -182 14
 -292 20 -110 7 -234 15 -275 20 -102 12 -340 24 -340 18 0 -5 122 -125 219
 -218 55 -51 379 -366 504 -488 59 -58 107 -111 107 -117 0 -14 -455 -465 -808
@@ -88,33 +91,29 @@ function createScaleRow(labelTitle) {
 -127 156 -64 80 -130 160 -145 179 -15 18 -54 66 -86 105 -32 39 -66 80 -75
 91 -10 11 -33 40 -52 65 -19 25 -42 54 -52 65 -58 71 -85 104 -100 126 -9 13
 -17 21 -17 18z"
-                />
-              </g>
-            </svg>
+    />
+  </g>
+</svg>
+
           </div>
 
           <div class="chart-marker marker-check">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path
-                d="M4 13l5 5 11-11"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+  <path
+    d="M4 13l5 5 11-11"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
           </div>
 
           <div class="ticks">
-            ${Array.from(
-              { length: 11 },
-              (_, i) => `<span
-              class="tick"
-              style="left:${i * 10}%"
-              >${i * 10}</span
-            >`
-            ).join("")}
+            ${Array.from({ length: 11 }, (_, i) => `
+              <span class="tick" style="left:${i * 10}%">${i * 10}</span>
+            `).join("")}
           </div>
         </div>
       </div>
@@ -126,13 +125,18 @@ function createScaleRow(labelTitle) {
         min="0"
         max="100"
       />
+    </div>
 
-      <button class="clear-btn" type="button">CLEAR</button>
+    <div class="actions">
       <button class="star-btn" type="button">STAR</button>
       <button class="circle-btn" type="button">CIRCLE</button>
       <button class="dotted-btn" type="button">DASHED</button>
       <button class="check-btn" type="button">CHECK</button>
-      `;
+      <button class="clear-btn" type="button">CLEAR</button>
+    </div>
+  `;
+
+  /* ---------- ELEMENTS ---------- */
 
   const input = row.querySelector(".user-input");
   const fill = row.querySelector(".chart-fill");
@@ -152,15 +156,27 @@ function createScaleRow(labelTitle) {
     check: row.querySelector(".check-btn"),
   };
 
-  /* -------- VALUE MODEL -------- */
+  /* =========================
+     VALUE MODEL
+  ========================= */
 
   const getValue = () => {
     const raw = Number(input.value);
-    if (!raw) return null; // 0, "", NaN → нет значения
+    if (!raw) return null; // "", 0, NaN → нет значения
     return clamp(raw, 1, 100);
   };
 
-  /* -------- VISUAL SYNC -------- */
+  const getMarkerLeft = (type) => {
+    const val = getValue();
+    const pos = val === null ? 0 : val;
+    return type === "check"
+      ? `calc(${pos}% + 8px)`
+      : `${pos}%`;
+  };
+
+  /* =========================
+     VISUAL SYNC
+  ========================= */
 
   const syncVisuals = () => {
     const val = getValue();
@@ -174,7 +190,9 @@ function createScaleRow(labelTitle) {
     });
   };
 
-  /* -------- INPUT -------- */
+  /* =========================
+     INPUT
+  ========================= */
 
   input.addEventListener("focus", () => input.select());
 
@@ -192,7 +210,9 @@ function createScaleRow(labelTitle) {
     }
   });
 
-  /* -------- MARKERS -------- */
+  /* =========================
+     MARKERS
+  ========================= */
 
   const toggleMarker = (type) => {
     const marker = markers[type];
@@ -201,7 +221,7 @@ function createScaleRow(labelTitle) {
 
     Object.values(markers).forEach((m) => {
       m.classList.remove("active");
-      m.style.left = ""; // ⬅ сброс памяти
+      m.style.left = "";
     });
 
     Object.values(buttons).forEach((b) => {
@@ -211,7 +231,7 @@ function createScaleRow(labelTitle) {
 
     if (!isActive) {
       marker.classList.add("active");
-      marker.style.left = getMarkerLeft(type); // ⬅ всегда
+      marker.style.left = getMarkerLeft(type);
       button.style.backgroundColor = "#ffe6e6";
       button.style.borderColor = "#ff0000";
     }
@@ -222,28 +242,18 @@ function createScaleRow(labelTitle) {
   buttons.dotted.addEventListener("click", () => toggleMarker("dotted"));
   buttons.check.addEventListener("click", () => toggleMarker("check"));
 
-  const getMarkerLeft = (type) => {
-    const val = getValue();
-    const pos = val === null ? 0 : val;
-
-    if (type === "check") {
-      return `calc(${pos}% + 8px)`;
-    }
-
-    return `${pos}%`;
-  };
-
-  /* -------- CLEAR ROW -------- */
+  /* =========================
+     CLEAR ROW
+  ========================= */
 
   row.querySelector(".clear-btn").addEventListener("click", () => {
     input.value = "";
-
     fill.style.width = "0%";
     percentLabel.textContent = "0";
 
     Object.values(markers).forEach((m) => {
       m.classList.remove("active");
-      m.style.left = ""; // ⬅ критично
+      m.style.left = "";
     });
 
     Object.values(buttons).forEach((b) => {
