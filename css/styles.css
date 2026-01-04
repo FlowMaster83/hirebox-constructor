@@ -5,6 +5,9 @@
   --header-height: 72px;
   --primary-blue: #0059b3;
   --bg-color: #f9f9f9;
+  --tick-step: 10;
+  --tick-width: 1px;
+  --tick-color: rgba(0, 0, 0, 0.15);
 }
 
 body {
@@ -98,6 +101,8 @@ main {
 }
 
 .chart-track {
+  position: relative;
+  overflow: visible;
   width: 100%;
   height: 100%;
   background-color: #eee;
@@ -106,9 +111,74 @@ main {
   position: relative;
 }
 
+/* відмітки на шкалі з кроком в 10% */
+.chart-track::before {
+  transform: translateX(0.5px);
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+
+  background-image: linear-gradient(
+    to right,
+
+    transparent 0%,
+    transparent calc(10% - var(--tick-width)),
+    var(--tick-color) calc(10% - var(--tick-width)),
+    var(--tick-color) 10%,
+
+    transparent 10%,
+    transparent calc(20% - var(--tick-width)),
+    var(--tick-color) calc(20% - var(--tick-width)),
+    var(--tick-color) 20%,
+
+    transparent 20%,
+    transparent calc(30% - var(--tick-width)),
+    var(--tick-color) calc(30% - var(--tick-width)),
+    var(--tick-color) 30%,
+
+    transparent 30%,
+    transparent calc(40% - var(--tick-width)),
+    var(--tick-color) calc(40% - var(--tick-width)),
+    var(--tick-color) 40%,
+
+    transparent 40%,
+    transparent calc(50% - var(--tick-width)),
+    var(--tick-color) calc(50% - var(--tick-width)),
+    var(--tick-color) 50%,
+
+    transparent 50%,
+    transparent calc(60% - var(--tick-width)),
+    var(--tick-color) calc(60% - var(--tick-width)),
+    var(--tick-color) 60%,
+
+    transparent 60%,
+    transparent calc(70% - var(--tick-width)),
+    var(--tick-color) calc(70% - var(--tick-width)),
+    var(--tick-color) 70%,
+
+    transparent 70%,
+    transparent calc(80% - var(--tick-width)),
+    var(--tick-color) calc(80% - var(--tick-width)),
+    var(--tick-color) 80%,
+
+    transparent 80%,
+    transparent calc(90% - var(--tick-width)),
+    var(--tick-color) calc(90% - var(--tick-width)),
+    var(--tick-color) 90%,
+
+    transparent 90%,
+    transparent 100%
+  );
+}
+
+
 .chart-fill {
-  height: 100%;
+  position: relative;
+  z-index: 2;
   width: 0%;
+  height: 100%;
   background: linear-gradient(to right, #7ec0ee, var(--primary-blue));
   transition: width 0.3s ease;
   overflow: hidden;
@@ -159,63 +229,13 @@ button:hover {
   color: #d93025;
 }
 
-/* ========================================================================== */
-@media (max-width: 1024px) {
-  .scale-row button:not(.clear-btn) {
-    display: none;
-  }
-
-  .scale-row {
-    flex-wrap: wrap;
-    padding-bottom: 25px;
-    border-bottom: 1px solid #eee;
-  }
-
-  .label {
-    width: 100%;
-    margin-bottom: 8px;
-    font-size: 15px;
-  }
-
-  .chart-wrapper {
-    margin-right: 20px;
-    position: relative;
-  }
-
-  .user-input {
-    margin-right: 5px;
-    height: 40px;
-    width: 60px;
-  }
-
-  .clear-btn {
-    height: 40px;
-    padding: 0 5px;
-    font-weight: 700;
-  }
-
-  .header {
-    height: auto;
-    padding: 15px 0;
-  }
-  .header .layout {
-    flex-direction: row;
-    gap: 15px;
-  }
-  main {
-    padding-top: 150px;
-  }
-}
-
-/* ========================================================================== */
-
 .chart-marker {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
   opacity: 0;
-  z-index: 10;
+  z-index: 3;
   transition: opacity 0.2s ease, left 0.1s linear;
   color: #ff0000;
 }
