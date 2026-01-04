@@ -69,7 +69,6 @@ main {
   transition: 0.2s;
 }
 
-/* Рядок шкали */
 .container {
   display: flex;
   flex-direction: column;
@@ -93,7 +92,6 @@ main {
   color: var(--primary-blue);
 }
 
-/* Шкала */
 .chart-wrapper {
   flex: 1;
   height: 24px;
@@ -104,7 +102,7 @@ main {
   height: 100%;
   background-color: #eee;
   border-radius: 4px;
-  overflow: hidden;
+  overflow: visible;
   position: relative;
 }
 
@@ -113,9 +111,10 @@ main {
   width: 0%;
   background: linear-gradient(to right, #7ec0ee, var(--primary-blue));
   transition: width 0.3s ease;
+  overflow: hidden;
+  border-radius: 4px;
 }
 
-/* Підписи (Ticks) */
 .ticks {
   position: absolute;
   top: 28px;
@@ -131,7 +130,6 @@ main {
   color: #888;
 }
 
-/* Елементи керування */
 .user-input {
   margin-left: 50px;
   width: 50px;
@@ -161,46 +159,41 @@ button:hover {
   color: #d93025;
 }
 
-/* ==========================================================================
-   АДАПТИВНІСТЬ (Планшети та Мобільні)
-   ========================================================================== */
+/* ========================================================================== */
 @media (max-width: 1024px) {
-  /* 1. Ховаємо STAR, POINTER, CIRCLE */
   .scale-row button:not(.clear-btn) {
     display: none;
   }
 
   .scale-row {
-    flex-wrap: wrap; /* Дозволяємо назві бути зверху */
+    flex-wrap: wrap;
     padding-bottom: 25px;
     border-bottom: 1px solid #eee;
   }
 
   .label {
-    width: 100%; /* Назва зверху на весь рядок */
+    width: 100%;
     margin-bottom: 8px;
     font-size: 15px;
   }
 
-  /* 2. Шкала + відступ 20px + Інпут + відступ 20px + CLEAR */
   .chart-wrapper {
-    margin-right: 20px; /* Відступ від шкали до інпуту */
+    margin-right: 20px;
     position: relative;
   }
 
   .user-input {
-    margin-right: 5px; /* Відступ від інпуту до кнопки CLEAR */
-    height: 40px; /* Збільшена висота для зручності пальців */
+    margin-right: 5px;
+    height: 40px;
     width: 60px;
   }
 
   .clear-btn {
-    height: 40px; /* Збільшена висота для зручності пальців */
+    height: 40px;
     padding: 0 5px;
     font-weight: 700;
   }
 
-  /* Коригування шапки */
   .header {
     height: auto;
     padding: 15px 0;
@@ -214,9 +207,7 @@ button:hover {
   }
 }
 
-/* ==========================================================================
-   НОВЕ: Стилі для маркера
-   ========================================================================== */
+/* ========================================================================== */
 
 .chart-marker {
   position: absolute;
@@ -226,7 +217,7 @@ button:hover {
   opacity: 0;
   z-index: 10;
   transition: opacity 0.2s ease, left 0.1s linear;
-  color: #ff0000; /* SVG и контуры берут цвет отсюда */
+  color: #ff0000;
 }
 
 .chart-marker.active {
@@ -239,7 +230,6 @@ button:hover {
   display: block;
 }
 
-/* 1. Суцільне коло */
 .marker-solid {
   width: 50px;
   height: 50px;
@@ -248,7 +238,6 @@ button:hover {
   box-sizing: border-box;
 }
 
-/* 2. Пунктирне коло */
 .marker-dotted {
   width: 50px;
   height: 50px;
@@ -257,7 +246,6 @@ button:hover {
   box-sizing: border-box;
 }
 
-/* 3. Контурна восьмикутна зірка */
 .marker-star {
   width: 70px;
   height: 70px;
@@ -273,7 +261,7 @@ button:hover {
   width: 40px;
   height: 40px;
   color: #ff0000;
-  transform: translateY(-50%);
+  left: calc(100% + 8px);
 }
 
 .marker-check svg {
