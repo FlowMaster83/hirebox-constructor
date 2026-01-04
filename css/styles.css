@@ -142,19 +142,6 @@ main {
   font-weight: 700;
 }
 
-/* прибираємо стрілки */
-/* Для Chrome, Safari, Edge та Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Для Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-
 button {
   height: 32px;
   padding: 0 12px;
@@ -234,27 +221,28 @@ button:hover {
 .chart-marker {
   position: absolute;
   top: 50%;
-  width: 50px;
-  height: 50px;
   transform: translate(-50%, -50%);
   pointer-events: none;
   opacity: 0;
   z-index: 10;
   transition: opacity 0.2s ease, left 0.1s linear;
-  color: #ff0000;
+  color: #ff0000; /* SVG и контуры берут цвет отсюда */
 }
 
 .chart-marker.active {
   opacity: 1;
 }
 
-.marker-svg {
-  width: 50px;
-  height: 50px;
+.chart-marker svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 /* 1. Суцільне коло */
 .marker-solid {
+  width: 50px;
+  height: 50px;
   border: 3px solid #ff0000;
   border-radius: 50%;
   box-sizing: border-box;
@@ -262,6 +250,8 @@ button:hover {
 
 /* 2. Пунктирне коло */
 .marker-dotted {
+  width: 50px;
+  height: 50px;
   border: 3px dashed #ff0000;
   border-radius: 50%;
   box-sizing: border-box;
@@ -269,9 +259,6 @@ button:hover {
 
 /* 3. Контурна восьмикутна зірка */
 .marker-star {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 70px;
   height: 70px;
 }
@@ -282,12 +269,15 @@ button:hover {
   color: #ff0000; /* SVG берёт цвет через currentColor */
 }
 
-/* Стилізація активного стану кнопок для JS */
-.btn-active-red {
-  background-color: #ffe6e6 !important;
-  border-color: #ff0000 !important;
+.marker-check {
+  width: 40px;
+  height: 40px;
+  color: #ff0000;
+  transform: translateY(-50%);
 }
 
-.chart-wrapper {
-  position: relative;
+.marker-check svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
