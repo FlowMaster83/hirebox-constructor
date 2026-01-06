@@ -25,6 +25,7 @@ export function createScaleRow(labelTitle, container) {
       <input
         class="user-input"
         type="number"
+        name="input"
         placeholder="0"
         min="0"
         max="100"

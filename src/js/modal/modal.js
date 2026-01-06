@@ -1,5 +1,11 @@
 import { renderModalResults } from "./modalContent.js";
 
+const MODAL_BREAKPOINT = 768;
+
+function isModalAllowed() {
+  return window.innerWidth > MODAL_BREAKPOINT;
+}
+
 let modalRoot = null;
 let lastActiveElement = null;
 
@@ -81,7 +87,11 @@ export function closeModal() {
 
 document.addEventListener("click", (e) => {
   const openBtn = e.target.closest("[data-open-modal]");
+
   if (openBtn) {
+    // ❌ на мобильных модалка полностью отключена
+    if (!isModalAllowed()) return;
+
     const resultsNode = renderModalResults();
     openModal(resultsNode, openBtn);
     return;

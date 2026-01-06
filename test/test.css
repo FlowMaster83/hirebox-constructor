@@ -2,3 +2,18 @@
   color: red;
   text-decoration: none;
 }
+
+.modal__keys {
+  display: flex;
+  flex-direction: row;
+}
+
+.type {
+  display: flex;
+  flex-direction: row;
+}
+
+.percents {
+  display: flex;
+  flex-direction: row;
+}

@@ -81,7 +81,7 @@
 /* одна строка */
 .result-row {
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 200px 1fr;
   gap: 24px;
   align-items: center;
 }
@@ -145,5 +145,9 @@
   .result-row {
     grid-template-columns: 1fr;
     gap: 8px;
+  }
+
+  .header-result-btn {
+    display: none;
   }
 }
