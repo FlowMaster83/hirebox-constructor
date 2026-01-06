@@ -2,7 +2,6 @@
 
 import { createMarker } from "../components/markers.js";
 
-
 const STEP = 10;
 const MAX = 100;
 
@@ -170,6 +169,50 @@ export function createScaleRow(labelTitle, container) {
       syncVisuals();
     }
   });
+
+  input.addEventListener("wheel", handleWheelInput, { passive: false });
+
+  // SCROLL ON INPUT
+  const SCROLLMIN = 0;
+  const SCROLLMAX = 100;
+  const SCROLLSTEP = 1;
+
+  function clamp(value, min = SCROLLMIN, max = SCROLLMAX) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function handleWheelInput(e) {
+    e.preventDefault();
+
+    const input = e.currentTarget;
+    const current = Number(input.value) || 0;
+
+    const delta = e.deltaY < 0 ? SCROLLSTEP : -SCROLLSTEP;
+    const nextValue = clamp(current + delta);
+
+    input.value = nextValue;
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+  }
+
+  // remove 0 before the next digit
+  input.addEventListener("input", handleInputNormalize);
+
+  function handleInputNormalize(e) {
+    const input = e.target;
+
+    if (input.value === "") return;
+
+    let value = Number(input.value);
+
+    if (Number.isNaN(value)) {
+      input.value = "";
+      return;
+    }
+
+    value = clamp(value);
+
+    input.value = value;
+  }
 
   /* =========================
      Marker toggle
