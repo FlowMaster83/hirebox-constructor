@@ -4,9 +4,7 @@
   grid-template-areas: "label value actions";
   column-gap: 12px;
   align-items: center;
-
-  flex: 1;
-  min-width: 0;
+  margin-bottom: 20px;
 }
 
 .scale-row .label {
@@ -24,68 +22,75 @@
   grid-area: value;
   display: flex;
   align-items: center;
-  gap: 24px;
-  flex: 1;
+  gap: 36px;
   min-width: 0;
-}
-
-.scale-bar {
-  height: 32px; /* или твоя реальная высота */
-  position: relative;
 }
 
 .chart-wrapper {
-  display: block;
   flex: 1;
   height: 24px;
-  min-width: 0;
 }
 
 .chart-track {
   position: relative;
   width: 100%;
   height: 100%;
-
   background-color: #eee;
   border-radius: 4px;
-  overflow: visible;
 }
 
 .chart-fill {
   position: relative;
   z-index: 2;
-
   width: 0%;
   height: 100%;
-
   background: linear-gradient(to right, #7ec0ee, var(--primary-blue));
   border-radius: 4px;
-
   transition: width 0.3s ease;
 }
 
+/* ticks container */
 .ticks {
   position: absolute;
-  top: 28px;
-  left: 0;
-  right: 0;
-  height: 12px;
+  inset: 0;
+  pointer-events: none;
 }
 
+/* цифры */
 .tick {
   position: absolute;
+  bottom: -14px;
   transform: translateX(-50%);
   font-size: 9px;
   color: #888;
+  white-space: nowrap;
+  font-weight: 400;
+}
+
+.tick--major {
+  font-weight: 600;
+  color: #555;
+}
+
+.tick--end {
+  transform: translateX(-3px);
+}
+
+/* вертикальные линии (СТАБИЛЬНЫЕ) */
+.tick-line {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 1px;
+  background-color: rgba(0, 0, 0, 0.15);
+  transform: translateX(-0.5px);
 }
 
 .user-input {
   width: 50px;
   height: 32px;
-
   text-align: center;
   font-weight: 700;
-
   border: 1px solid #ccc;
   border-radius: 4px;
 }
@@ -95,5 +100,10 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  flex-shrink: 0;
+}
+
+#scales-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
