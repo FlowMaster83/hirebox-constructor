@@ -21,9 +21,9 @@
   display: flex;
   flex-direction: column;
 
-  max-width: 960px;
+  max-width: 1320px;
   width: calc(100% - 32px);
-  max-height: 90vh;
+  max-height: 92vh;
 
   margin: 5vh auto;
   padding: 0;
@@ -40,8 +40,10 @@
   align-items: center;
   justify-content: space-between;
 
-  padding: 16px 20px;
+  padding: 5px 20px;
   border-bottom: 1px solid #eee;
+
+  min-height: 44px;
 }
 
 .modal__logo {
@@ -55,7 +57,7 @@
   flex: 1;
   overflow-y: auto;
 
-  padding: 16px 20px 24px;
+  padding: 20px 120px 20px;
 }
 
 .modal {
@@ -73,7 +75,7 @@
 .results {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 /* одна строка */
@@ -102,6 +104,30 @@
 
 .result-scale .chart-track {
   position: relative;
+}
+
+.modal__close {
+  width: 40px; /* ⬅ больше */
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px; /* ⬅ крупнее крест */
+  line-height: 1;
+
+  background: none; /* ⬅ без рамки */
+  border: none;
+  border-radius: 0; /* ⬅ без кружка */
+
+  cursor: pointer;
+  color: #333;
+}
+
+/* аккуратный hover */
+.modal__close:hover {
+  opacity: 0.6;
 }
 
 /* =========================================================
