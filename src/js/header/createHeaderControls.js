@@ -1,4 +1,40 @@
 // header/createHeaderControls.js
+
+const MIN = 1;
+const MAX = 100;
+const STEP = 1;
+
+function normalizeValue(raw) {
+  if (raw === "") return null;
+
+  let value = Number(raw);
+
+  if (Number.isNaN(value)) return null;
+  if (value < MIN) return null;
+
+  return Math.min(value, MAX);
+}
+
+function applyValueToAllScales(value) {
+  document.querySelectorAll(".scale-row").forEach((row) => {
+    const input = row.querySelector(".user-input");
+    if (!input) return;
+
+    input.value = value;
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+}
+
+function clearAllScales() {
+  document.querySelectorAll(".scale-row").forEach((row) => {
+    const input = row.querySelector(".user-input");
+    if (!input) return;
+
+    input.value = "";
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+}
+
 export function createHeaderControls(rootId) {
   const root = document.getElementById(rootId);
   if (!root) return null;
@@ -17,26 +53,15 @@ export function createHeaderControls(rootId) {
   label.textContent = "Fill all:";
 
   /* -----------------------------
-     SELECT
+     INPUT (MASTER)
   ----------------------------- */
 
-  const select = document.createElement("select");
-  select.className = "user-select";
-
-  const placeholder = document.createElement("option");
-  placeholder.value = "";
-  placeholder.textContent = "select %";
-  placeholder.disabled = true;
-  placeholder.hidden = true;
-  placeholder.selected = true;
-  select.appendChild(placeholder);
-
-  for (let value = 10; value <= 100; value += 10) {
-    const option = document.createElement("option");
-    option.value = value;
-    option.textContent = `${value}%`;
-    select.appendChild(option);
-  }
+  const input = document.createElement("input");
+  input.className = "user-input";
+  input.type = "number";
+  input.inputMode = "numeric";
+  input.placeholder = "0";
+  input.autocomplete = "off";
 
   /* -----------------------------
      BUTTONS
@@ -46,7 +71,7 @@ export function createHeaderControls(rootId) {
   fillBtn.className = "fill-btn";
   fillBtn.type = "button";
   fillBtn.disabled = true;
-  fillBtn.textContent = "FILL";
+  fillBtn.textContent = "FILL ALL";
 
   const clearBtn = document.createElement("button");
   clearBtn.className = "clear-all-btn";
@@ -66,18 +91,84 @@ export function createHeaderControls(rootId) {
   const langBtn = document.createElement("button");
   langBtn.className = "lang-toggle-btn";
   langBtn.type = "button";
-  langBtn.textContent = "UA"; // стартовый язык
+  langBtn.textContent = "UA";
+
+  /* -----------------------------
+     INPUT LOGIC
+  ----------------------------- */
+
+  function updateFillState(value) {
+    fillBtn.disabled = value === null;
+  }
+
+  input.addEventListener("input", () => {
+    const value = normalizeValue(input.value);
+
+    if (value === null) {
+      input.value = "";
+      updateFillState(null);
+      return;
+    }
+
+    input.value = value;
+    updateFillState(value);
+  });
+
+  input.addEventListener(
+    "wheel",
+    (e) => {
+      e.preventDefault();
+
+      const current = normalizeValue(input.value) ?? 0;
+      const delta = e.deltaY < 0 ? STEP : -STEP;
+      const next = normalizeValue(current + delta);
+
+      if (next === null) {
+        input.value = "";
+        updateFillState(null);
+        return;
+      }
+
+      input.value = next;
+      updateFillState(next);
+
+      applyValueToAllScales(next);
+    },
+    { passive: false }
+  );
+
+  /* -----------------------------
+     FILL BUTTON
+  ----------------------------- */
+
+  fillBtn.addEventListener("click", () => {
+    const value = normalizeValue(input.value);
+    if (value === null) return;
+
+    applyValueToAllScales(value);
+  });
+
+  /* -----------------------------
+     CLEAR ALL BUTTON
+  ----------------------------- */
+
+  clearBtn.addEventListener("click", () => {
+    clearAllScales();
+
+    input.value = "";
+    updateFillState(null);
+  });
 
   /* -----------------------------
      APPEND
   ----------------------------- */
 
-  wrapper.append(label, select, fillBtn, clearBtn, resultBtn, langBtn);
+  wrapper.append(label, input, fillBtn, clearBtn, resultBtn, langBtn);
 
   root.appendChild(wrapper);
 
   return {
-    select,
+    input,
     fillBtn,
     clearBtn,
     resultBtn,
