@@ -14,8 +14,18 @@ button {
 
 button:hover {
   background: #f0f0f0;
+  color: black;
 }
 
 .clear-btn {
   color: #d93025;
+}
+
+.clear-all-btn {
+  background-color: red;
+}
+
+.header-result-btn {
+  background-color: green;
+  color: white;
 }
