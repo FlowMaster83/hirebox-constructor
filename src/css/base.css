@@ -4,13 +4,41 @@
   --layout-padding: 20px;
 
   --header-height: 72px;
+  --header-bg-color: #fff;
+  --border-color: #eee;
+
+  --main-red-color: #FB3D3F;
+  --logo-color: #FB3D3F;
 
   --primary-blue: #0059b3;
+  --secondary-blue: #7ec0ee;
   --bg-color: #f9f9f9;
+
+  --user-input-bg-color: #ccc;
+
+  --scale-digits-color: #888;
+  --scale-digits-bold-color: #555;
+  --scale-head-color: #888;
+  --scale-bg-color: #eee;
 
   --tick-step: 10;
   --tick-width: 1px;
   --tick-color: rgba(0, 0, 0, 0.15);
+  --tick-bg-color: rgba(0, 0, 0, 0.15);
+  --body-color: #333;
+
+  --button-color: #FB3D3F;
+  --button-result-background-color: #6E9611;
+  --button-result-text-color: #fff;
+  --button-background-color: #fff;
+  --button-hover-color: #000000;
+  --button-hover-background-color: #f0f0f0;
+  --button-border-color: #ccc;
+
+  --markers-color: #FB3D3F;
+
+  --modal-overlay-color: rgba(0, 0, 0, 0.45);
+  --modal-bg-color: #fff;
 }
 
 /* RESET */
@@ -25,5 +53,5 @@ body {
   font-family: "Geologica", sans-serif;
   font-size: 14px;
   background: var(--bg-color);
-  color: #333;
+  color: var(--body-color);
 }

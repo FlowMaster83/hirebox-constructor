@@ -16,7 +16,7 @@
 .modal__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: var(--modal-overlay-color);
 }
 
 .modal__content {
@@ -32,7 +32,7 @@
   margin: 5vh auto;
   padding: 0;
 
-  background: #fff;
+  background: var(--modal-bg-color);
   border-radius: 8px;
 }
 
@@ -48,7 +48,7 @@
   justify-content: space-between;
 
   padding: 5px 20px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color);
 
   min-height: 44px;
 }
@@ -56,7 +56,7 @@
 .modal__logo {
   font-weight: 700;
   font-size: 16px;
-  color: red;
+  color: var(--logo-color);
 }
 
 .modal__close {
@@ -73,7 +73,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #333;
+  color: var(--body-color);
 }
 
 .modal__close:hover {
@@ -123,7 +123,7 @@
 
   font-size: 16px;
   font-weight: 600;
-  color: red;
+  color: var(--main-red-color);
   margin-bottom: 4px;
 }
 
@@ -132,7 +132,7 @@
   height: 14px;
 
   font-size: 11px;
-  color: #888;
+  color: var(--scale-head-color);
 }
 
 .scale-head-values .value {
@@ -140,7 +140,7 @@
   transform: translateX(-50%);
   font-size: 16px;
   font-weight: 600;
-  color: var(--primary-blue, #0059b3);
+  color: var(--primary-blue);
 }
 
 .scale-head-values .v0 {
@@ -184,7 +184,7 @@
 
 .result-value {
   font-weight: 600;
-  color: var(--primary-blue, #0059b3);
+  color: var(--primary-blue);
 }
 
 .result-scale .chart-wrapper {

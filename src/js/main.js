@@ -1,8 +1,17 @@
 import { initScales } from "./scales/initScales.js";
 import { initHeaderControls } from "./header/controls.js";
 import "./modal/modal.js"; // важно: просто импорт, чтобы навесились обработчики
+import { initTheme } from "./theme/dark.js";
+import { createThemeToggleButton } from "./theme/themeButton.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initScales();
   initHeaderControls();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  initTheme();
+
+  const header = document.querySelector("header");
+  createThemeToggleButton(header);
 });

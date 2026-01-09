@@ -5,27 +5,47 @@ button {
   font-size: 12px;
   cursor: pointer;
 
-  border: 1px solid #ccc;
+  border: 1px solid var(--button-border-color);
   border-radius: 4px;
-  background: #fff;
+  background: var(--button-background-color);
 
   transition: background 0.2s;
 }
 
 button:hover {
-  background: #f0f0f0;
-  color: black;
+  background: var(--button-hover-background-color);
+  color: var(--button-hover-color);
 }
 
 .clear-btn {
-  color: #d93025;
+  color: var(--button-color);
 }
 
 .clear-all-btn {
-  background-color: #d93025;
+  background-color: var(--button-color);
 }
 
 .header-result-btn {
-  background-color: green;
-  color: white;
+  background-color: var(--button-result-background-color);
+  color: var(--button-result-text-color);
+}
+
+[data-toggle-theme] {
+  background: var(--button-background-color);
+  color: var(--body-color);
+  border: 1px solid var(--button-border-color);
+  cursor: pointer;
+
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-toggle-theme]:hover {
+  background: var(--button-hover-background-color);
+  color: var(--button-hover-color);
 }

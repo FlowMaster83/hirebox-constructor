@@ -6,8 +6,8 @@
   height: var(--header-height);
   z-index: 100;
 
-  background: #fff;
-  border-bottom: 1px solid #eee;
+  background: var(--header-bg-color);
+  border-bottom: 1px solid var(--border-color);
 
   display: flex;
   align-items: center;
@@ -22,7 +22,7 @@
 .main-logo {
   margin-right: auto;
   font-size: 22px;
-  color: red;
+  color: var(--logo-color);
   font-weight: 700;
 
   text-decoration: none;
@@ -47,15 +47,4 @@
   margin: 0;
   font-size: 12px;
   opacity: 0.8;
-}
-
-.user-select {
-  height: 32px;
-  padding: 0 12px;
-  font-size: 12px;
-
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background: #fff;
-  cursor: pointer;
 }
