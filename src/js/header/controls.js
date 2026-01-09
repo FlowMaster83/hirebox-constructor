@@ -2,12 +2,19 @@
 import { createHeaderControls } from "./createHeaderControls.js";
 import { LABELS } from "../constants/labels.js";
 
-let currentLang = "ua";
+/**
+ * Список поддерживаемых языков
+ * Порядок = порядок переключения
+ */
+const LANGS = Object.keys(LABELS); // ["ua", "en", "ru"]
+
+let currentLangIndex = 0; // стартовый язык: ua
 
 /**
  * Обновляет подписи шкал без пересоздания DOM
  */
 function updateScaleLabels() {
+  const currentLang = LANGS[currentLangIndex];
   const labels = LABELS[currentLang];
   const nodes = document.querySelectorAll(".scale-label");
 
@@ -61,15 +68,15 @@ export function initHeaderControls() {
   });
 
   /* -----------------------------
-     LANGUAGE TOGGLE
+     LANGUAGE TOGGLE (ua → en → ru)
   ----------------------------- */
 
   if (langBtn) {
-    langBtn.textContent = currentLang.toUpperCase();
+    langBtn.textContent = LANGS[currentLangIndex].toUpperCase();
 
     langBtn.addEventListener("click", () => {
-      currentLang = currentLang === "ua" ? "en" : "ua";
-      langBtn.textContent = currentLang.toUpperCase();
+      currentLangIndex = (currentLangIndex + 1) % LANGS.length;
+      langBtn.textContent = LANGS[currentLangIndex].toUpperCase();
 
       updateScaleLabels();
     });
