@@ -95,7 +95,11 @@
 ========================================================= */
 
 .modal-scale-head {
-  margin-bottom: 12px;
+  margin-bottom: 8px;
+}
+
+.result-title {
+  font-size: 14px;
 }
 
 .scale-head-grid {
@@ -106,7 +110,7 @@
 
 /* .scale-head-spacer {
   /* alignment column for labels */
-} */
+ */
 
 .scale-head-content {
   position: relative;
@@ -117,7 +121,7 @@
   grid-template-columns: 33% 34% 33%;
   text-align: center;
 
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 600;
   color: red;
   margin-bottom: 4px;
@@ -134,6 +138,7 @@
 .scale-head-values .value {
   position: absolute;
   transform: translateX(-50%);
+  font-size: 16px;
   font-weight: 600;
   color: var(--primary-blue, #0059b3);
 }
@@ -162,7 +167,7 @@
 .results {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .result-row {
