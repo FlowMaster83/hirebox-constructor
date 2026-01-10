@@ -38,10 +38,10 @@
 
   --markers-color: #FB3D3F;
 
-  --modal-overlay-color: rgba(0, 0, 0, 0.45);
+  --modal-overlay-color: rgba(0, 0, 0, 0.753);
   --modal-bg-color: #fff;
 
-  --modal-head-overlap: -8px;
+  --modal-head-overlap: -15px;
 }
 
 /* RESET */
