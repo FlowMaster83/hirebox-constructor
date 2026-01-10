@@ -125,6 +125,7 @@
   grid-template-columns: 200px 1fr;
   gap: 24px;
   align-items: center;
+  transform: translateY(-20px);
 }
 
 .result-label {

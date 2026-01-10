@@ -41,7 +41,7 @@
   --modal-overlay-color: rgba(0, 0, 0, 0.753);
   --modal-bg-color: #fff;
 
-  --modal-head-overlap: -15px;
+  --modal-head-overlap: -8px;
 }
 
 /* RESET */
