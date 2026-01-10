@@ -116,3 +116,22 @@
     white-space: nowrap;
   }
 }
+
+@media (max-width: 480px) {
+  /* скрываем ВСЕ цифры */
+  .tick {
+    display: none;
+  }
+
+  /* показываем только 0 / 50 / 100 */
+  .tick:nth-child(1),
+  .tick:nth-child(6),
+  .tick:nth-child(11) {
+    display: block;
+  }
+
+  /* убираем вертикальные линии */
+  .tick-line {
+    display: none;
+  }
+}
