@@ -142,9 +142,7 @@ export function createScaleRow(labelTitle, container) {
     Object.entries(markers).forEach(([type, marker]) => {
       if (marker.classList.contains("active")) {
         marker.style.left =
-          type === "check"
-            ? `calc(${val}% + 8px)`
-            : `${val}%`;
+          type === "check" ? `calc(${val}% + 8px)` : `${val}%`;
       }
     });
   };
@@ -191,21 +189,17 @@ export function createScaleRow(labelTitle, container) {
     });
 
     Object.values(buttons).forEach((b) => {
-      b.style.backgroundColor = "";
-      b.style.borderColor = "";
+      b.classList.remove("marker-active");
     });
 
     const marker = markers[type];
     const button = buttons[type];
 
     marker.classList.add("active");
-    marker.style.left =
-      type === "check"
-        ? `calc(${getValue()}% + 8px)`
-        : `${getValue()}%`;
+    button.classList.add("marker-active");
 
-    button.style.backgroundColor = "#ffe6e6";
-    button.style.borderColor = "#ff0000";
+    marker.style.left =
+      type === "check" ? `calc(${getValue()}% + 8px)` : `${getValue()}%`;
   };
 
   Object.entries(buttons).forEach(([type, btn]) => {

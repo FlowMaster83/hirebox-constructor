@@ -1,4 +1,9 @@
 [data-theme="dark"] {
+
+  --marker-active-bg: #ffe6e6;
+  --marker-active-border: #ff0000;
+  --marker-active-text: #1a1a1a; /* ВАЖНО: тёмный текст */
+
   --header-bg-color: #111318;
   --border-color: #242833;
 

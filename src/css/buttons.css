@@ -3,18 +3,23 @@ button {
   padding: 0 12px;
 
   font-size: 12px;
+  line-height: 1;
   cursor: pointer;
 
   border: 1px solid var(--button-border-color);
   border-radius: 4px;
-  background: var(--button-background-color);
+
+  background-color: var(--button-background-color);
   color: var(--button-text-color);
 
-  transition: background 0.2s;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 button:hover {
-  background: var(--button-hover-background-color);
+  background-color: var(--button-hover-background-color);
   color: var(--button-hover-color);
 }
 
@@ -24,6 +29,7 @@ button:hover {
 
 .clear-all-btn {
   background-color: var(--button-color);
+  color: var(--button-text-color);
 }
 
 .header-result-btn {
@@ -32,7 +38,7 @@ button:hover {
 }
 
 [data-toggle-theme] {
-  background: var(--button-background-color);
+  background-color: var(--button-background-color);
   color: var(--button-text-color);
   border: 1px solid var(--button-border-color);
   cursor: pointer;
@@ -46,6 +52,7 @@ button:hover {
 }
 
 [data-toggle-theme]:hover {
-  background: var(--button-hover-background-color);
+  background-color: var(--button-hover-background-color);
   color: var(--button-hover-color);
 }
+
