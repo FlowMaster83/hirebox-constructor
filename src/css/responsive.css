@@ -50,7 +50,7 @@
       "label"
       "value"
       "actions";
-    row-gap: 12px;
+    row-gap: 8px;
   }
 
   .scale-row .label {
@@ -106,6 +106,20 @@
 ========================================================= */
 
 @media (max-width: 480px) {
+
+  main {
+    padding-top: 20px;
+    margin-top: 0;
+  }
+
+  .header {
+    top: auto;              /* ОБЯЗАТЕЛЬНО */
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 
   .header-options .header-label {
     display: none;

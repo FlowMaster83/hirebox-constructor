@@ -11,7 +11,7 @@
   grid-template-areas: "label value actions";
   column-gap: 12px;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   min-width: 0;
 }
 
