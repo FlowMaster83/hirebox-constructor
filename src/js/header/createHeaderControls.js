@@ -1,17 +1,14 @@
-// createHeaderControls.js
-
 import { createThemeToggleButton } from "../theme/themeButton.js";
 import { resetAllScales } from "../state/scaleRegistry.js";
 
 const MAX = 100;
 const STEP = 1;
+const isMobile = window.matchMedia("(max-width: 640px)").matches;
 
-/**
- * Нормализация значения
- * null → пусто (placeholder)
- * 0    → допустимо для шкал
- * 1–100
- */
+/* -----------------------------
+   NORMALIZE VALUE
+----------------------------- */
+
 function normalizeValue(raw) {
   if (raw === "") return null;
 
@@ -22,10 +19,10 @@ function normalizeValue(raw) {
   return Math.min(value, MAX);
 }
 
-/**
- * Применяет значение ко всем шкалам
- * (используется master-input)
- */
+/* -----------------------------
+   APPLY TO ALL SCALES
+----------------------------- */
+
 function applyValueToAllScales(value) {
   document.querySelectorAll(".scale-row").forEach((row) => {
     const input = row.querySelector(".user-input");
@@ -36,6 +33,10 @@ function applyValueToAllScales(value) {
   });
 }
 
+/* =========================================================
+   CREATE HEADER CONTROLS
+========================================================= */
+
 export function createHeaderControls(rootId) {
   const root = document.getElementById(rootId);
   if (!root) return null;
@@ -45,60 +46,53 @@ export function createHeaderControls(rootId) {
   const wrapper = document.createElement("div");
   wrapper.className = "header-options";
 
-  /* -----------------------------
-     LABEL
-  ----------------------------- */
+  /* LABEL */
 
   const label = document.createElement("p");
   label.className = "header-label";
   label.textContent = "Fill all:";
 
-  /* -----------------------------
-     INPUT (MASTER)
-  ----------------------------- */
+  /* MASTER INPUT */
 
   const input = document.createElement("input");
   input.className = "user-input";
   input.type = "number";
   input.inputMode = "numeric";
   input.placeholder = "0";
-  input.autocomplete = "off";
 
-  /* -----------------------------
-     BUTTONS
-  ----------------------------- */
+  /* RESULT BUTTON (DESKTOP ONLY) */
 
-  const resultBtn = document.createElement("button");
-  resultBtn.className = "header-result-btn";
-  resultBtn.type = "button";
-  resultBtn.textContent = "RESULT";
-  resultBtn.dataset.openModal = "true";
+  let resultBtn = null;
+
+  if (!isMobile) {
+    resultBtn = document.createElement("button");
+    resultBtn.className = "header-result-btn";
+    resultBtn.type = "button";
+    resultBtn.textContent = "RESULT";
+    resultBtn.dataset.openModal = "true";
+  }
+
+  /* CLEAR ALL */
 
   const clearBtn = document.createElement("button");
   clearBtn.className = "clear-all-btn";
   clearBtn.type = "button";
   clearBtn.textContent = "CLEAR ALL";
 
-  /* -----------------------------
-     LANGUAGE TOGGLE
-  ----------------------------- */
+  /* LANGUAGE */
 
   const langBtn = document.createElement("button");
   langBtn.className = "lang-toggle-btn button";
   langBtn.type = "button";
   langBtn.textContent = "UA";
 
-  /* -----------------------------
-     THEME TOGGLE
-  ----------------------------- */
+  /* THEME */
 
   const themeContainer = document.createElement("div");
   themeContainer.className = "theme-toggle";
   createThemeToggleButton(themeContainer);
 
-  /* -----------------------------
-     INPUT: keyboard
-  ----------------------------- */
+  /* INPUT HANDLERS */
 
   input.addEventListener("input", () => {
     const value = normalizeValue(input.value);
@@ -112,10 +106,6 @@ export function createHeaderControls(rootId) {
     input.value = value;
     applyValueToAllScales(value);
   });
-
-  /* -----------------------------
-     INPUT: wheel
-  ----------------------------- */
 
   input.addEventListener(
     "wheel",
@@ -138,26 +128,19 @@ export function createHeaderControls(rootId) {
     { passive: false }
   );
 
-  /* -----------------------------
-     CLEAR ALL (КЛЮЧЕВАЯ ЧАСТЬ)
-  ----------------------------- */
+  /* CLEAR ALL */
 
   clearBtn.addEventListener("click", () => {
-    // 1. Сбрасываем ВСЕ шкалы через registry
     resetAllScales();
-
-    // 2. Очищаем master-input
     input.value = "";
   });
 
-  /* -----------------------------
-     APPEND
-  ----------------------------- */
+  /* APPEND */
 
   wrapper.append(
     label,
     input,
-    resultBtn,
+    ...(resultBtn ? [resultBtn] : []),
     clearBtn,
     langBtn,
     themeContainer

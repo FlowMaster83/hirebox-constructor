@@ -1,4 +1,7 @@
-/* modal.css */
+/* =========================================================
+   MODAL ROOT (DESKTOP / TABLET ONLY)
+========================================================= */
+
 .modal {
   position: fixed;
   inset: 0;
@@ -10,26 +13,31 @@
   display: block;
 }
 
+/* затемнение */
 .modal__overlay {
   position: absolute;
   inset: 0;
   background: var(--modal-overlay-color);
 }
 
+/* =========================================================
+   MODAL CONTENT (CARD)
+========================================================= */
+
 .modal__content {
   position: relative;
   display: flex;
   flex-direction: column;
 
-  max-width: 1320px;
   width: calc(100% - 32px);
+  max-width: 1320px;
   max-height: 92vh;
 
   margin: 5vh auto;
-  padding: 0;
-
   background: var(--modal-bg-color);
   border-radius: 8px;
+
+  overflow: hidden;
 }
 
 /* =========================================================
@@ -39,59 +47,121 @@
 .modal__body {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+
   padding: 20px 120px;
 }
 
 /* =========================================================
-   SCALE HEADER (FINAL, CANONICAL)
+   MODAL SCALE HEADER (CANONICAL — MATCHES RESULTS)
 ========================================================= */
 
 .modal-scale-head {
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 
 /*
-  Grid geometry MUST match .result-row
-  Columns:
-  - left  : labels / logo
-  - right : scale
+  Grid MUST match .result-row:
+  left  — labels / logo
+  right — scales
 */
 .scale-head-grid {
   display: grid;
   grid-template-columns: 200px 1fr;
   grid-template-rows: auto auto auto;
-  row-gap: 0;
+  column-gap: 24px;
+  align-items: center;
+
+    grid-template-rows:
+    min-content   /* уровни */
+    min-content   /* логотип */
+    min-content;  /* проценты */
+
+  row-gap: 1px;   /* ← ТЕПЕРЬ ТЫ УПРАВЛЯЕШЬ РАССТОЯНИЕМ */
+
+  column-gap: 24px;
   align-items: center;
 }
 
-/* LOW / AVERAGE / HIGH */
+/* ---------- ROW 1: LOW / AVERAGE / HIGH ---------- */
+
 .scale-head-levels {
+  grid-column: 2;
   display: grid;
   grid-template-columns: 33% 34% 33%;
+  width: 100%;
+
   text-align: center;
   font-size: 16px;
   font-weight: 600;
   color: var(--main-red-color);
 }
 
-/* 0 / 33 / 66 / 100 */
-.scale-head-values {
-  position: relative;
-  height: 16px;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--primary-blue);
-  transform: translateY(var(--modal-head-overlap));
+/* ---------- ROW 2: LOGO ---------- */
+
+.scale-head-grid .main-logo {
+  grid-column: 1;
+  grid-row: 2;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  color: var(--logo-color);
+  text-decoration: none;
 }
 
+.scale-head-levels > .level {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scale-head-grid .main-logo img {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
+.scale-head-grid .main-logo-text {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.scale-head-grid .main-logo-text::after {
+  content: "™";
+  font-size: 0.7em;
+  vertical-align: super;
+  margin-left: 2px;
+}
+
+/* ---------- ROW 3: 0 / 33 / 66 / 100 ---------- */
+
+.scale-head-values {
+  grid-column: 2;
+  position: relative;
+
+  width: 100%;
+  height: 16px;
+  margin-top: 2px;
+
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-blue);
+}
+
+/* позиционирование значений */
 .scale-head-values .value {
   position: absolute;
   transform: translateX(-50%);
+  white-space: nowrap;
 }
 
-/* edges */
+/* края */
 .scale-head-values .v0 {
-  left: 1.5%;
+  left: 0%;
   transform: none;
 }
 
@@ -115,15 +185,20 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  margin-top: -4px;
 }
 
+/*
+  MUST match scale-head-grid columns
+*/
 .result-row {
   display: grid;
   grid-template-columns: 200px 1fr;
-  gap: 24px;
+  column-gap: 24px;
   align-items: center;
-  transform: translateY(-20px);
 }
+
+/* ---------- LEFT: LABEL + VALUE ---------- */
 
 .result-label {
   font-size: 14px;
@@ -131,7 +206,7 @@
 }
 
 .result-title {
-  font-size: 14px;
+  font-weight: 500;
 }
 
 .result-value {
@@ -139,10 +214,41 @@
   color: var(--primary-blue);
 }
 
+/* ---------- RIGHT: SCALE ---------- */
+
 .result-scale .chart-wrapper {
   width: 100%;
 }
 
 .result-scale .chart-track {
   position: relative;
+}
+
+/* =========================================================
+   MARKERS (INSIDE MODAL)
+========================================================= */
+
+/*
+  Маркеры клонируются внутрь .chart-track,
+  поэтому им нужна та же логика слоёв
+*/
+.result-scale .chart-marker {
+  z-index: 10;
+}
+
+/* =========================================================
+   MODAL SCALE HEADER — FONT SIZE ADAPTATION
+========================================================= */
+
+@media (max-width: 768px) {
+
+  /* LOW / AVERAGE / HIGH */
+  .scale-head-levels {
+    font-size: 14px;
+  }
+
+  /* 0 / 33 / 66 / 100 */
+  .scale-head-values {
+    font-size: 12px;
+  }
 }

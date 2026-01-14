@@ -1,10 +1,17 @@
 /* responsive.css */
+/* =========================================================
+   ≥ 1025px — desktop
+========================================================= */
+
 @media (min-width: 1025px) {
   .scale-row {
     grid-template-columns: 240px 1fr auto;
   }
 }
 
+/* =========================================================
+   ≤ 1024px — tablet
+========================================================= */
 
 @media (max-width: 1024px) {
   .scale-row {
@@ -35,10 +42,15 @@
 }
 
 /* =========================================================
-   ≤ 640px — stacked layout, simplified scale
+   ≤ 640px — MOBILE MODE (NO MODAL)
 ========================================================= */
 
 @media (max-width: 640px) {
+
+  /* ❌ RESULT button completely removed visually */
+  .header-result-btn {
+    display: none !important;
+  }
 
   .header-options .header-label {
     display: none;
@@ -60,28 +72,23 @@
 
   .scale-row .value {
     gap: 10px;
-    padding-right: 0;
     padding-bottom: 16px;
   }
 
   /* ---- SCALE SIMPLIFICATION ---- */
 
-  /* скрываем все цифры */
   .tick {
     display: none;
   }
 
-  /* показываем только 0 / 50 / 100 */
   .tick.tick--major {
     display: block;
   }
 
-  /* убираем вертикальные линии */
   .tick-line {
     display: none;
   }
 
-  /* гарантированно убираем before */
   .chart-track::before {
     display: none;
   }
@@ -100,19 +107,18 @@
     font-size: 18px;
   }
 
-    .main-logo-text {
+  .main-logo-text {
     font-size: 12px;
-}
+  }
 }
 
 /* =========================================================
-   ≤ 480px — mobile actions (letters, check, arrows)
+   ≤ 480px — mobile header
 ========================================================= */
 
 @media (max-width: 480px) {
   main {
     padding-top: 20px;
-    margin-top: 0;
   }
 
   .header {
@@ -120,85 +126,12 @@
     bottom: 0;
     left: 0;
     right: 0;
-
     padding-bottom: env(safe-area-inset-bottom);
-  }
-
-  .logo-text::after {
-    content: "™";
-    font-size: 0.7em;
-    vertical-align: super;
-    margin-left: 2px;
-}
-
-  .main-logo-text {
-    font-size: 10px;
-}
-
-  [data-open-modal] {
-    font-size: 0;
-  }
-
-  [data-open-modal]::after {
-    content: "R";
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1;
-  }
-
-
-  .scale-row .actions {
-    gap: 6px;
-  }
-
-  /* все кнопки */
-  .scale-row .actions button {
-    height: 30px;
-    min-width: 36px;
-    padding: 0;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* маркерные кнопки: C / D / S / ✓ */
-  .scale-row .actions
-  button:not(.clear-btn):not(.arrow-btn) {
-    font-size: 0; /* скрываем текст */
-  }
-
-  .scale-row .actions
-  button:not(.clear-btn):not(.arrow-btn)::after {
-    content: attr(data-short);
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1;
-  }
-
-  /* стрелки */
-  .scale-row .actions .arrow-btn {
-    font-size: 16px;
-    font-weight: 700;
-  }
-
-  /* CLEAR — тянется, текстовый */
-  .scale-row .actions .clear-btn {
-    flex: 1;
-    min-width: 56px;
-    padding: 0 8px;
-    font-size: 12px;
-    font-weight: 600;
-    white-space: nowrap;
-  }
-
-  .arrow-btn {
-    display: inline-flex;
   }
 }
 
 @media (max-width: 440px) {
-    .main-logo-text {
+  .main-logo-text {
     display: none;
-}
+  }
 }

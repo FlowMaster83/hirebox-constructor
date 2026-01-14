@@ -16,3 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const header = document.querySelector("header");
   createThemeToggleButton(header);
 });
+
+if (window.matchMedia("(min-width: 641px)").matches) {
+  import("./modal/modal.js");
+}
