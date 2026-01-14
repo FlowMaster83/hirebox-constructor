@@ -153,16 +153,28 @@ export function createScaleRow(labelTitle, container) {
      VALUE HELPERS
   ========================= */
 
-  const getValue = () => {
-    const num = Number(input.value);
-    return Number.isFinite(num) && num > 0 ? Math.min(num, MAX) : 0;
-  };
+  const normalizeInputValue = (value) => {
+  if (value === "" || value === null) return 0;
 
-  const setValue = (val) => {
-    const next = Math.min(MAX, Math.max(0, val));
-    input.value = next === 0 ? "" : next;
-    syncVisuals();
-  };
+  const num = Number(value);
+  if (!Number.isFinite(num) || num <= 0) return 0;
+
+  return Math.min(num, MAX);
+};
+
+
+const getValue = () => normalizeInputValue(input.value);
+
+
+const setValue = (val) => {
+  const next = normalizeInputValue(val);
+
+  // ВАЖНО: сюда всегда попадает уже нормализованное число
+  input.value = next === 0 ? "" : String(next);
+
+  syncVisuals();
+};
+
 
   const syncVisuals = () => {
     const val = getValue();
@@ -183,11 +195,10 @@ export function createScaleRow(labelTitle, container) {
 
   input.addEventListener("focus", () => input.select());
 
-  input.addEventListener("input", () => {
-    if (input.value < 0) input.value = "";
-    if (input.value > MAX) input.value = MAX;
-    syncVisuals();
-  });
+input.addEventListener("input", () => {
+  setValue(input.value);
+});
+
 
   input.addEventListener(
     "wheel",
