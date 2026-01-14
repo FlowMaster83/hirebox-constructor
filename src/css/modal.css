@@ -4,7 +4,7 @@
 ========================================================= */
 
 .modal {
-  position: fixed;
+  position: fixed; /* НЕ ТРОГАЕМ */
   inset: 0;
   z-index: 9999;
   display: none;
@@ -26,7 +26,7 @@
 ========================================================= */
 
 .modal__content {
-  position: relative;
+  position: relative; /* ЯКОРЬ ДЛЯ КНОПОК */
   display: flex;
   flex-direction: column;
 
@@ -42,7 +42,7 @@
 }
 
 /* =========================================================
-   MODAL CLOSE BUTTON
+   MODAL CLOSE + PDF BUTTONS (TOP RIGHT)
 ========================================================= */
 
 .modal-close-btn {
@@ -77,6 +77,44 @@
   transform: scale(0.96);
 }
 
+/* ---------- PDF BUTTON (TEMPORARY PLACEMENT) ---------- */
+
+.modal-controls {
+  position: absolute;
+  top: 12px;
+  right: 56px; /* слева от крестика */
+
+  display: flex;
+  align-items: center;
+  z-index: 20;
+}
+
+.modal-controls button[data-export-pdf] {
+  height: 32px;
+  padding: 0 12px;
+
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+
+  color: #fff;
+  background: var(--primary-blue);
+
+  border: none;
+  border-radius: 6px;
+
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.modal-controls button[data-export-pdf]:hover {
+  opacity: 0.9;
+}
+
+.modal-controls button[data-export-pdf]:active {
+  transform: translateY(1px);
+}
 
 /* =========================================================
    MODAL BODY
@@ -260,18 +298,15 @@
 
 /* =========================================================
    TABLET COMPRESSION
-   starts at 1024px (INTENTIONAL)
 ========================================================= */
 
 @media (max-width: 1024px) {
 
-  /* body paddings */
   .modal__body {
     padding-left: 48px;
     padding-right: 48px;
   }
 
-  /* header text */
   .scale-head-levels {
     font-size: 14px;
   }

@@ -1,24 +1,52 @@
 // src/js/components/modalContent.js
+import { exportResultsToPDF } from "../pdf/exportResultsToPDF.js";
 
+/**
+ * Формирует содержимое модалки с результатами
+ * Используется как для UI, так и как источник для PDF
+ */
 export function renderModalResults() {
-  const container = document.createElement("div");
-  container.className = "results";
+  const root = document.createElement("div");
+  root.className = "modal-results";
 
-  container.appendChild(renderModalScaleHeader());
+  /* =========================================================
+     CONTENT (то, что идёт в PDF)
+  ========================================================= */
+
+  const content = document.createElement("div");
+  content.className = "results";
+  content.dataset.modalResults = "";
+
+  content.appendChild(renderModalScaleHeader());
 
   const scaleRows = document.querySelectorAll(".scale-row");
-
   scaleRows.forEach((row) => {
-    container.appendChild(renderResultRow(row));
+    content.appendChild(renderResultRow(row));
   });
 
-  return container;
+  /* =========================================================
+     CONTROLS (не попадают в PDF)
+  ========================================================= */
+
+  const controls = document.createElement("div");
+  controls.className = "modal-controls";
+
+  const pdfButton = document.createElement("button");
+  pdfButton.type = "button";
+  pdfButton.dataset.exportPdf = "";
+  pdfButton.textContent = "PDF";
+
+  pdfButton.addEventListener("click", exportResultsToPDF);
+
+  controls.appendChild(pdfButton);
+
+  /* ========================================================= */
+
+  root.appendChild(content);
+  root.appendChild(controls);
+
+  return root;
 }
-
-
-/* =========================================================
-   SCALE HEADER (LOW / AVERAGE / HIGH)
-========================================================= */
 
 function renderModalScaleHeader() {
   const header = document.createElement("div");
@@ -34,11 +62,11 @@ function renderModalScaleHeader() {
         <span class="level high">HIGH</span>
       </div>
 
-      <!-- ROW 2 (LOGO BETWEEN LINES) -->
+      <!-- ROW 2 -->
       <a class="main-logo">
-          <img src="./svg/logo.svg" alt="Logo" />
-          <span class="main-logo-text">HIREBOX</span>
-        </a>
+        <img src="./svg/logo.svg" alt="Logo" />
+        <span class="main-logo-text">HIREBOX</span>
+      </a>
       <div></div>
 
       <!-- ROW 3 -->
@@ -55,11 +83,6 @@ function renderModalScaleHeader() {
   return header;
 }
 
-
-/* =========================================================
-   RESULT ROW (READ-ONLY)
-========================================================= */
-
 function renderResultRow(rowSource) {
   const row = document.createElement("div");
   row.className = "result-row";
@@ -69,9 +92,9 @@ function renderResultRow(rowSource) {
   const fillEl = rowSource.querySelector(".chart-fill");
   const trackEl = rowSource.querySelector(".chart-track");
 
-  const title = labelEl ? labelEl.textContent : "";
-  const value = valueEl ? valueEl.textContent : "0";
-  const fillWidth = fillEl?.style.width || "0%";
+  const title = labelEl?.textContent ?? "";
+  const value = valueEl?.textContent ?? "0";
+  const fillWidth = fillEl?.style.width ?? "0%";
 
   row.innerHTML = `
     <div class="result-label">

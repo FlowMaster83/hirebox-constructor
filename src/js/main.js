@@ -1,7 +1,7 @@
 // main.js
 import { initScales } from "./scales/initScales.js";
 import { initHeaderControls } from "./header/controls.js";
-import "./modal/modal.js"; // важно: просто импорт, чтобы навесились обработчики
+import "./modal/modal.js";
 import { initTheme } from "./theme/dark.js";
 import { createThemeToggleButton } from "./theme/themeButton.js";
 
