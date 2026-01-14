@@ -35,9 +35,10 @@ function renderModalScaleHeader() {
       </div>
 
       <!-- ROW 2 (LOGO BETWEEN LINES) -->
-      <div class="main-logo">
-        HireBox&trade;
-      </div>
+      <a class="main-logo">
+          <img src="./svg/logo.svg" alt="Logo" />
+          <span class="main-logo-text">HIREBOX</span>
+        </a>
       <div></div>
 
       <!-- ROW 3 -->
