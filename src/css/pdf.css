@@ -1,0 +1,116 @@
+/* pdf.css */
+/* =========================================================
+   PDF EXPORT MODE — DOCUMENT (ALWAYS LIGHT)
+========================================================= */
+
+/* ---------- GLOBAL RESET ---------- */
+
+.is-exporting-pdf * {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* ---------- DOCUMENT THEME OVERRIDE ---------- */
+
+.is-exporting-pdf {
+  /* базовая типографика */
+  font-size: 14px;
+  line-height: 1.4;
+  background: #ffffff;
+  overflow-x: hidden;
+
+  /* ПЕРЕОПРЕДЕЛЯЕМ ВСЕ КЛЮЧЕВЫЕ ЦВЕТА */
+  --modal-bg-color: #ffffff;
+  --text-color: #000000;
+  --logo-color: #d32f2f;
+
+  --primary-blue: #003a8f;
+  --main-red-color: #d32f2f;
+
+  /* шкалы */
+  --chart-track-bg: #f0f0f0;
+  --chart-fill-bg: linear-gradient(
+    to right,
+    #7aa9e6 0%,
+    #4a7fd6 100%
+  );
+}
+
+/* =========================================================
+   FORCE SCALE COLORS (CRITICAL)
+========================================================= */
+
+/* трек шкалы */
+.is-exporting-pdf .chart-track {
+  background: var(--chart-track-bg) !important;
+}
+
+/* заполненная часть */
+.is-exporting-pdf .chart-fill {
+  background: var(--chart-fill-bg) !important;
+}
+
+/* =========================================================
+   LOGO FIX
+========================================================= */
+
+/* текст HIREBOX должен совпадать с логотипом */
+.is-exporting-pdf .main-logo-text {
+  color: inherit !important;
+}
+
+/* =========================================================
+   GEOMETRY (A4 FRIENDLY)
+========================================================= */
+
+.is-exporting-pdf .modal__body {
+  padding: 20px 48px;
+}
+
+.is-exporting-pdf .scale-head-grid,
+.is-exporting-pdf .result-row {
+  grid-template-columns: 220px 1fr;
+  column-gap: 16px;
+}
+
+.is-exporting-pdf [data-modal-results] {
+  max-width: 100%;
+  color: #000;
+}
+
+/* =========================================================
+   LEFT COLUMN — LABEL + VALUE (NO WRAP)
+========================================================= */
+
+.is-exporting-pdf .result-label {
+  white-space: nowrap;
+}
+
+.is-exporting-pdf .result-title,
+.is-exporting-pdf .result-value {
+  display: inline;
+}
+
+/* =========================================================
+   SCALE HEADER FIXES (0 / 33 / 66 / 100)
+========================================================= */
+
+.is-exporting-pdf .scale-head-values .v100 {
+  left: 98%;
+  transform: translateX(-100%);
+}
+
+.is-exporting-pdf .scale-head-values .v0 {
+  left: 0%;
+  transform: none;
+}
+
+/* =========================================================
+   DOCUMENT RHYTHM
+========================================================= */
+
+.is-exporting-pdf .modal-scale-head {
+  margin-bottom: 24px;
+}
