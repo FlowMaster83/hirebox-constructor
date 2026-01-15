@@ -2,29 +2,22 @@
 [data-theme="dark"] {
   --header-bg-color: #111318;
   --border-color: #242833;
-
   --primary-blue: #4c9dff;
   --secondary-blue: #7fb8ff;
-
   --bg-color: #0f1115;
   --user-input-bg-color: #1e222b;
   --modal-bg-color: #171a21;
-
   --body-color: #e6e6e6;
   --scale-digits-color: #9aa0a6;
   --scale-digits-bold-color: #cfd3d8;
   --scale-head-color: #9aa0a6;
-
   --scale-bg-color: #242833;
-
   --tick-color: rgba(255, 255, 255, 0.18);
   --tick-bg-color: rgba(255, 255, 255, 0.18);
-
   --button-background-color: #171a21;
   --button-border-color: #e6e6e6;
   --button-text-color: #f0f0f0;
   --button-hover-color: #ffffff;
   --button-hover-background-color: #242833;
-
   --modal-overlay-color: rgba(0, 0, 0, 0.65);
 }

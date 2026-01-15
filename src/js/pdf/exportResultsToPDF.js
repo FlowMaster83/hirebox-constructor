@@ -1,11 +1,12 @@
 // src/js/pdf/exportResultsToPDF.js
-
 export function exportResultsToPDF() {
   const source = document.querySelector("[data-modal-results]");
-  if (!source) return;
 
+  if (!source) return;
   /* =========================================================
+
      CREATE OFFSCREEN CLONE
+
   ========================================================= */
 
   // Клонируем только PDF-контент
@@ -20,44 +21,46 @@ export function exportResultsToPDF() {
     position: "fixed",
     top: "0",
     left: "-10000px",
-    width: "1000px",          // стабильная ширина для A4
+    width: "1000px", // стабильная ширина для A4
     background: "#ffffff",
     pointerEvents: "none",
-    zIndex: "-1"
+    zIndex: "-1",
   });
 
   wrapper.appendChild(clone);
   document.body.appendChild(wrapper);
 
   /* =========================================================
-     PDF OPTIONS
-  ========================================================= */
 
+     PDF OPTIONS
+
+  ========================================================= */
   const options = {
     margin: 10,
     filename: "results.pdf",
-
     image: {
       type: "jpeg",
-      quality: 0.98
+      quality: 0.98,
     },
 
     html2canvas: {
       scale: 3,
       useCORS: true,
-      backgroundColor: "#ffffff"
+      backgroundColor: "#ffffff",
     },
 
     jsPDF: {
       unit: "mm",
       format: "a4",
       orientation: "portrait",
-      compressPDF: true
-    }
+      compressPDF: true,
+    },
   };
 
   /* =========================================================
+
      EXPORT
+
   ========================================================= */
 
   html2pdf()
