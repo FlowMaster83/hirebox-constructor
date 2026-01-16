@@ -1,140 +1,126 @@
-/* pdf.css */
 /* =========================================================
-
    PDF EXPORT — DOCUMENT MODE (CANONICAL)
-
+   Включается классом: html.is-exporting-pdf
 ========================================================= */
 
 /* =========================================================
-
-   1. PDF MODE ACTIVATION
-
+   1. PDF MODE ROOT
 ========================================================= */
 
-.is-exporting-pdf {
-  /* document tokens */
-  --pdf-bg: #ffffff;
-  --pdf-text: #000000;
-  --pdf-brand: #d32f2f;
-  --pdf-accent: #003a8f;
-  --pdf-track: #f0f0f0;
-  --pdf-fill-start: #7aa9e6;
-  --pdf-fill-end: #4a7fd6;
+html.is-exporting-pdf,
+html.is-exporting-pdf body {
+  background: #ffffff;
 }
 
 /* =========================================================
-
-   2. GLOBAL CLEANUP (VISUAL NOISE)
-
+   2. CANONICAL PDF TOKENS
 ========================================================= */
-.is-exporting-pdf * {
+
+html.is-exporting-pdf {
+  /* base */
+  --bg-color: #ffffff;
+  --body-color: #000000;
+  --border-color: #dddddd;
+
+  /* brand */
+  --primary-blue: #0059b3;
+  --secondary-blue: #7ec0ee;
+  --main-red-color: #d32f2f;
+
+  /* scales */
+  --scale-bg-color: #eeeeee;
+  --scale-head-color: #000000;
+  --scale-digits-color: #666666;
+  --scale-digits-bold-color: #333333;
+
+  /* ticks */
+  --tick-bg-color: rgba(0, 0, 0, 0.15);
+  --tick-color: rgba(0, 0, 0, 0.15);
+
+  /* inputs */
+  --user-input-bg-color: #cccccc;
+
+  /* buttons */
+  --button-background-color: #ffffff;
+  --button-text-color: #000000;
+  --button-border-color: #cccccc;
+}
+
+/* =========================================================
+   3. GLOBAL CLEANUP (NO ANIMATION / NO NOISE)
+========================================================= */
+
+html.is-exporting-pdf * {
   box-shadow: none !important;
   text-shadow: none !important;
-  transition: none !important;
   animation: none !important;
+  transition: none !important;
 }
 
 /* =========================================================
-
-   3. DOCUMENT BACKGROUND
-
-========================================================= */
-
-.is-exporting-pdf .modal__content {
-  background: var(--pdf-bg);
-}
-
-/* =========================================================
-
    4. DOCUMENT TYPOGRAPHY
-
 ========================================================= */
 
-/* только контент PDF */
-.is-exporting-pdf [data-modal-results] {
-  color: var(--pdf-text);
+html.is-exporting-pdf [data-modal-results] {
+  color: var(--body-color);
   font-size: 14px;
   line-height: 1.4;
 }
 
 /* =========================================================
-
-   5. BRANDING (LOGO)
-
+   5. A4 GEOMETRY / LAYOUT
 ========================================================= */
 
-.is-exporting-pdf .main-logo {
-  color: var(--pdf-brand);
-}
-
-/* =========================================================
-
-   6. SCALE COLORS (FORCED DOCUMENT STYLE)
-
-========================================================= */
-
-.is-exporting-pdf .chart-track {
-  background: var(--pdf-track) !important;
-}
-
-.is-exporting-pdf .chart-fill {
-  background: linear-gradient(to right,
-      var(--pdf-fill-start),
-      var(--pdf-fill-end)) !important;
-}
-
-/* =========================================================
-
-   7. A4 GEOMETRY
-
-========================================================= */
-
-.is-exporting-pdf .modal__body {
+html.is-exporting-pdf .modal__body {
   padding: 20px 48px;
 }
 
-.is-exporting-pdf .scale-head-grid,
-.is-exporting-pdf .result-row {
+html.is-exporting-pdf .scale-head-grid,
+html.is-exporting-pdf .result-row {
   grid-template-columns: 220px 1fr;
   column-gap: 16px;
 }
 
-.is-exporting-pdf [data-modal-results] {
-  max-width: 100%;
-}
-
 /* =========================================================
-
-   8. LEFT COLUMN — NO WRAP
-
+   6. LEFT COLUMN — NO WRAP
 ========================================================= */
 
-.is-exporting-pdf .result-label {
+html.is-exporting-pdf .result-label {
   white-space: nowrap;
 }
 
 /* =========================================================
-
-   9. SCALE HEADER EDGE FIX
-
+   7. SCALE HEADER EDGE FIX (100% / 0%)
 ========================================================= */
 
-.is-exporting-pdf .scale-head-values .v100 {
-  left: 98%;
+/* 100% — аккуратно прижимаем, без вылета */
+html.is-exporting-pdf .scale-head-values .v100 {
+  left: 100%;
   transform: translateX(-100%);
 }
 
-.is-exporting-pdf .scale-head-values .v0 {
+/* 0% — без трансформаций */
+html.is-exporting-pdf .scale-head-values .v0 {
   left: 0%;
   transform: none;
 }
 
 /* =========================================================
-
-   10. DOCUMENT RHYTHM
-
+   8. DOCUMENT RHYTHM
 ========================================================= */
 
-.is-exporting-pdf .modal-scale-head {
+html.is-exporting-pdf .modal-scale-head {
   margin-bottom: 24px;
+}
+
+/* =========================================================
+   PDF EXPORT — UI SHIELD (NO FLICKER)
+========================================================= */
+
+.pdf-export-overlay {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  z-index: 9999;
+  pointer-events: none;
 }

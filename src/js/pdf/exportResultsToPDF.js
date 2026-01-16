@@ -1,73 +1,47 @@
-// src/js/pdf/exportResultsToPDF.js
 export function exportResultsToPDF() {
   const source = document.querySelector("[data-modal-results]");
-
   if (!source) return;
-  /* =========================================================
 
-     CREATE OFFSCREEN CLONE
+  const root = document.documentElement;
 
-  ========================================================= */
+  // 1. UI shield
+  const overlay = document.createElement("div");
+  overlay.className = "pdf-export-overlay";
+  document.body.appendChild(overlay);
 
-  // Клонируем только PDF-контент
-  const clone = source.cloneNode(true);
+  // 2. Включаем PDF-режим
+  root.classList.add("is-exporting-pdf");
 
-  // Обёртка — носитель pdf.css
-  const wrapper = document.createElement("div");
-  wrapper.className = "is-exporting-pdf";
+  // 3. Даём браузеру стабилизироваться
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
 
-  // Убираем из визуального потока
-  Object.assign(wrapper.style, {
-    position: "fixed",
-    top: "0",
-    left: "-10000px",
-    width: "1000px", // стабильная ширина для A4
-    background: "#ffffff",
-    pointerEvents: "none",
-    zIndex: "-1",
-  });
+      const options = {
+        margin: 10,
+        filename: "results.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: {
+          scale: 3,
+          useCORS: true,
+          backgroundColor: "#ffffff",
+        },
+        jsPDF: {
+          unit: "mm",
+          format: "a4",
+          orientation: "portrait",
+          compressPDF: true,
+        },
+      };
 
-  wrapper.appendChild(clone);
-  document.body.appendChild(wrapper);
+      html2pdf()
+        .set(options)
+        .from(source)
+        .save()
+        .finally(() => {
+          root.classList.remove("is-exporting-pdf");
+          overlay.remove();
+        });
 
-  /* =========================================================
-
-     PDF OPTIONS
-
-  ========================================================= */
-  const options = {
-    margin: 10,
-    filename: "results.pdf",
-    image: {
-      type: "jpeg",
-      quality: 0.98,
-    },
-
-    html2canvas: {
-      scale: 3,
-      useCORS: true,
-      backgroundColor: "#ffffff",
-    },
-
-    jsPDF: {
-      unit: "mm",
-      format: "a4",
-      orientation: "portrait",
-      compressPDF: true,
-    },
-  };
-
-  /* =========================================================
-
-     EXPORT
-
-  ========================================================= */
-
-  html2pdf()
-    .set(options)
-    .from(clone)
-    .save()
-    .finally(() => {
-      wrapper.remove();
     });
+  });
 }
