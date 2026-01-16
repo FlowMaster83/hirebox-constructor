@@ -39,6 +39,8 @@ html.is-exporting-pdf {
   --button-background-color: #ffffff;
   --button-text-color: #000000;
   --button-border-color: #cccccc;
+
+  --markers-color: #FB3D3F;
 }
 
 html.is-exporting-pdf .chart-marker {
@@ -236,4 +238,30 @@ html.is-exporting-pdf .modal-controls {
   position: absolute;
   max-width: none;
   max-height: none;
+}
+
+html.is-exporting-pdf .chart-marker {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* =========================================================
+   FIX SVG MARKERS COLOR FOR PDF
+========================================================= */
+
+html.is-exporting-pdf .chart-marker {
+  color: var(--markers-color) !important;
+}
+
+html.is-exporting-pdf .chart-marker svg {
+  stroke-width: 4 !important;
+}
+
+html.is-exporting-pdf .marker-star svg {
+  stroke-width: 140 !important;
+}
+
+html.is-exporting-pdf .chart-marker {
+  opacity: 1 !important;
+  visibility: visible !important;
 }
