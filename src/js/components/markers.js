@@ -5,11 +5,14 @@ export const MARKER_SVGS = {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 480 519"
+      width="100%"
+      height="100%"
       class="marker-svg"
       aria-hidden="true"
     >
       <g
         transform="translate(0,519) scale(0.1,-0.1)"
+        vector-effect="non-scaling-stroke"
         fill="none"
         stroke="currentColor"
         stroke-width="120"
@@ -38,7 +41,7 @@ export const MARKER_SVGS = {
   `,
 
   check: `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true">
       <path
         d="M4 13l5 5 11-11"
         fill="none"
@@ -46,6 +49,7 @@ export const MARKER_SVGS = {
         stroke-width="3"
         stroke-linecap="round"
         stroke-linejoin="round"
+        vector-effect="non-scaling-stroke"
       />
     </svg>
   `,

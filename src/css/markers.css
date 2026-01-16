@@ -5,7 +5,7 @@
   transform: translate(-50%, -50%);
 
   pointer-events: none;
-  opacity: 0;
+  display: none;
   z-index: 3;
 
   color: var(--markers-color);
@@ -14,6 +14,7 @@
 
 .chart-marker.active {
   opacity: 1;
+  display: block;
 }
 
 .chart-marker svg {
