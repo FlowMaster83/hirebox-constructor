@@ -1,53 +1,46 @@
 /* =========================================================
    PDF EXPORT — DOCUMENT MODE (CANONICAL)
-   Включается классом: html.is-exporting-pdf
+   Активируется классом: html.is-exporting-pdf
 ========================================================= */
 
 /* =========================================================
-   1. PDF MODE ROOT
-========================================================= */
-
-html.is-exporting-pdf,
-html.is-exporting-pdf body {
-  background: #ffffff;
-}
-
-/* =========================================================
-   2. CANONICAL PDF TOKENS
+   2. CANONICAL PDF DESIGN TOKENS
+   Полная изоляция от light / dark темы приложения
 ========================================================= */
 
 html.is-exporting-pdf {
-  /* base */
+  /* Base */
   --bg-color: #ffffff;
   --body-color: #000000;
   --border-color: #dddddd;
 
-  /* brand */
+  /* Brand */
   --primary-blue: #0059b3;
   --secondary-blue: #7ec0ee;
   --main-red-color: #d32f2f;
 
-  /* scales */
+  /* Scales */
   --scale-bg-color: #eeeeee;
   --scale-head-color: #000000;
   --scale-digits-color: #666666;
   --scale-digits-bold-color: #333333;
 
-  /* ticks */
-  --tick-bg-color: rgba(0, 0, 0, 0.15);
+  /* Ticks */
   --tick-color: rgba(0, 0, 0, 0.15);
+  --tick-bg-color: rgba(0, 0, 0, 0.15);
 
-  /* inputs */
+  /* Inputs */
   --user-input-bg-color: #cccccc;
 
-  /* buttons */
+  /* Buttons */
   --button-background-color: #ffffff;
   --button-text-color: #000000;
   --button-border-color: #cccccc;
 }
 
 /* =========================================================
-   3. GLOBAL CLEANUP (NO ANIMATION / NO NOISE)
+   3. GLOBAL PDF SANITIZATION
+   Убираем UI-шум (анимации, тени)
 ========================================================= */
 
 html.is-exporting-pdf * {
@@ -68,7 +61,7 @@ html.is-exporting-pdf [data-modal-results] {
 }
 
 /* =========================================================
-   5. A4 GEOMETRY / LAYOUT
+   5. DOCUMENT GEOMETRY (A4 OPTIMIZED)
 ========================================================= */
 
 html.is-exporting-pdf .modal__body {
@@ -82,7 +75,7 @@ html.is-exporting-pdf .result-row {
 }
 
 /* =========================================================
-   6. LEFT COLUMN — NO WRAP
+   6. LEFT COLUMN BEHAVIOR
 ========================================================= */
 
 html.is-exporting-pdf .result-label {
@@ -90,23 +83,23 @@ html.is-exporting-pdf .result-label {
 }
 
 /* =========================================================
-   7. SCALE HEADER EDGE FIX (100% / 0%)
+   7. SCALE HEADER EDGE CORRECTIONS
 ========================================================= */
 
-/* 100% — аккуратно прижимаем, без вылета */
+/* 100% — безопасное прижатие к правому краю */
 html.is-exporting-pdf .scale-head-values .v100 {
   left: 100%;
   transform: translateX(-100%);
 }
 
-/* 0% — без трансформаций */
+/* 0% — стандартное позиционирование */
 html.is-exporting-pdf .scale-head-values .v0 {
   left: 0%;
   transform: none;
 }
 
 /* =========================================================
-   8. DOCUMENT RHYTHM
+   8. VERTICAL RHYTHM
 ========================================================= */
 
 html.is-exporting-pdf .modal-scale-head {
@@ -114,13 +107,19 @@ html.is-exporting-pdf .modal-scale-head {
 }
 
 /* =========================================================
-   PDF EXPORT — UI SHIELD (NO FLICKER)
+   9. SNAPSHOT OVERLAY (ANTI-FLICKER LAYER)
+   Показывается только во время экспорта
 ========================================================= */
 
-.pdf-export-overlay {
+.pdf-snapshot-overlay {
   position: fixed;
   inset: 0;
-  background: #fff;
-  z-index: 9999;
-  pointer-events: none;
+  z-index: 10000;
+  background: transparent;
+}
+
+.pdf-snapshot-overlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
