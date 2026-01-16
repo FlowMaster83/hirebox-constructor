@@ -20,7 +20,8 @@ html.is-exporting-pdf {
   --main-red-color: #d32f2f;
 
   /* Scales */
-  --scale-bg-color: #e6e6e6;          /* усилен контраст */
+  --scale-bg-color: #e6e6e6;
+  /* усилен контраст */
   --scale-head-color: #111111;
   --scale-digits-color: #555555;
   --scale-digits-bold-color: #222222;
@@ -70,7 +71,7 @@ html.is-exporting-pdf [data-modal-results] {
 ========================================================= */
 
 html.is-exporting-pdf .modal__body {
-  padding: 20px 48px;
+  padding: 16px 48px 12px;
 }
 
 html.is-exporting-pdf .scale-head-grid,
@@ -110,11 +111,9 @@ html.is-exporting-pdf .chart-track {
 
 html.is-exporting-pdf .chart-fill {
   border-radius: 6px;
-  background: linear-gradient(
-    to right,
-    #6fa3e0,
-    #3f6fc8
-  );
+  background: linear-gradient(to right,
+      #6fa3e0,
+      #3f6fc8);
 }
 
 
@@ -183,10 +182,20 @@ html.is-exporting-pdf .user-input {
 
 html.is-exporting-pdf .result-row {
   margin-bottom: 12px;
+  page-break-inside: avoid;
 }
 
+html.is-exporting-pdf .result-row:last-child {
+  margin-bottom: 0 !important;
+}
+
+
 html.is-exporting-pdf .modal-scale-head {
-  margin-bottom: 14px;
+  margin-bottom: 12px;
+}
+
+html.is-exporting-pdf .modal-scale-head:last-child {
+  margin-bottom: 0;
 }
 
 
