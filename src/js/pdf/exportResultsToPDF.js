@@ -67,7 +67,7 @@ export async function exportResultsToPDF() {
       type: "png",
     },
     html2canvas: {
-      scale: 2,
+      scale: 3,
       useCORS: true,
       backgroundColor: "#ffffff",
     },
