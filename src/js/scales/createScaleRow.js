@@ -40,6 +40,7 @@ export function createScaleRow(labelTitle, container) {
       <button data-marker="star" data-label="STAR" data-short="S">STAR</button>
       <button data-marker="check" data-label="CHECK" data-short="✓">CHECK</button>
       <button class="clear-btn" type="button">CLEAR</button>
+      
       <button class="arrow-btn arrow-left" type="button">←</button>
       <button class="arrow-btn arrow-right" type="button">→</button>
     </div>
