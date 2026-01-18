@@ -72,3 +72,30 @@
   font-size: 12px;
   opacity: 0.8;
 }
+
+/* === RESULT BUTTON === */
+
+.header-result-btn {
+  height: 32px;
+  padding: 0 14px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--button-bg);
+  color: var(--button-text);
+
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.header-result-btn:hover {
+  background: var(--button-bg-hover);
+}
+
+.header-result-btn:active {
+  transform: translateY(1px);
+}
+
