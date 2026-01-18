@@ -1,9 +1,9 @@
 // src/js/components/modalContent.js
-import { exportResultsToPDF } from "../pdf/exportResultsToPDF.js";
 
 /**
  * Формирует содержимое модалки с результатами
- * Используется как для UI, так и как источник для PDF
+ * Используется ТОЛЬКО для UI
+ * PDF-модель будет строиться отдельно (A4)
  */
 export function renderModalResults() {
   const root = document.createElement("div");
@@ -23,7 +23,6 @@ export function renderModalResults() {
 
   return {
     content: root,
-    exportPDF: exportResultsToPDF,
   };
 }
 
@@ -56,7 +55,6 @@ function renderModalScaleHeader() {
   return header;
 }
 
-
 function renderResultRow(rowSource) {
   const row = document.createElement("div");
   row.className = "result-row";
@@ -84,9 +82,12 @@ function renderResultRow(rowSource) {
   `;
 
   const targetTrack = row.querySelector(".chart-track");
+
   rowSource
     .querySelectorAll(".chart-marker.active")
-    .forEach((m) => targetTrack.appendChild(m.cloneNode(true)));
+    .forEach((marker) => {
+      targetTrack.appendChild(marker.cloneNode(true));
+    });
 
   return row;
 }
