@@ -92,11 +92,10 @@ export function openModal() {
   modal.querySelector(".modal-close-btn")?.focus();
 
   // actions
-  modal.querySelector('[data-action="pdf"]').onclick = result.exportPDF;
-  modal.querySelector('[data-action="png"]').onclick = () =>
-    console.warn("PNG export — TODO");
+  modal.querySelector('[data-action="pdf"]').onclick = () => console.log("PDF");
+  modal.querySelector('[data-action="png"]').onclick = () => console.log("PNG");
   modal.querySelector('[data-action="print"]').onclick = () =>
-    window.print();
+    console.log("PRINT");
 }
 
 export function closeModal() {
