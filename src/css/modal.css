@@ -165,6 +165,9 @@
 .modal-scale-head {
   position: relative;
   margin-bottom: 12px;
+
+  display: grid;
+  grid-template-columns: 200px 1fr;
 }
 
 /* ---------- LOGO (OUT OF GRID, LIKE CLOSE BUTTON) ---------- */
@@ -245,6 +248,7 @@
 /* ---------- GRID: DATA ONLY ---------- */
 
 .scale-head-grid {
+  grid-column: 2;
   width: 100%;
   display: grid;
   grid-template-rows: auto auto;
