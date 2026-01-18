@@ -248,8 +248,9 @@
   width: 100%;
   display: grid;
   grid-template-rows: auto auto;
-  row-gap: 4px;
-  /* 🔑 уменьшенный отступ */
+
+  /* отступ в шапке модалки*/
+  row-gap: 20px;
 }
 
 /* ---------- ROW 1: LOW / AVERAGE / HIGH ---------- */
