@@ -1,0 +1,344 @@
+/* modal.css */
+/* =========================================================
+   MODAL ROOT (DESKTOP / TABLET ONLY)
+========================================================= */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+}
+
+.modal.is-open {
+  display: block;
+}
+
+/* затемнение */
+.modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--modal-overlay-color);
+  z-index: 1;
+}
+
+/* =========================================================
+   MODAL WRAP (CONTENT + SIDE ACTIONS)
+   Модалка центрируется БЕЗ учёта кнопок
+========================================================= */
+
+.modal__wrap {
+  position: absolute;
+  top: 5vh;
+  left: 50%;
+  transform: translateX(calc(-50% + 60px));
+
+  display: flex;
+  align-items: flex-start;
+
+  width: calc(100% - 32px);
+  max-width: 1320px;
+
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* =========================================================
+   MODAL CONTENT (CARD)
+========================================================= */
+
+.modal__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  max-width: 1200px;
+  max-height: 92vh;
+
+  background: var(--modal-bg-color);
+  border-radius: 8px;
+  overflow: hidden;
+
+  pointer-events: auto;
+  z-index: 10;
+}
+
+/* =========================================================
+   MODAL CLOSE BUTTON
+========================================================= */
+
+.modal-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  width: 32px;
+  height: 32px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+  line-height: 1;
+
+  color: var(--text-color);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+
+  cursor: pointer;
+  z-index: 20;
+}
+
+.modal-close-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.modal-close-btn:active {
+  transform: scale(0.96);
+}
+
+/* =========================================================
+   MODAL BODY
+========================================================= */
+
+.modal__body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: 20px 64px;
+}
+
+/* =========================================================
+   MODAL SIDE ACTION BUTTONS (PDF / PNG / PRINT)
+   Кнопки не участвуют в центрировании
+========================================================= */
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  margin-left: 0;
+  margin-right: -10px;
+  margin-top: 20px;
+
+  z-index: 5;
+  pointer-events: auto;
+}
+
+/* =========================================================
+   MODAL ACTION BUTTON
+========================================================= */
+
+.modal-action-btn {
+  height: 32px;
+  padding: 0 10px;
+
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+
+  color: #fff;
+  background: var(--primary-blue);
+
+  border: none;
+  border-radius: 6px;
+
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+
+  /* default: утоплена влево */
+  transform: translateX(-8px);
+  transition: transform 160ms ease;
+}
+
+.modal-action-btn:hover {
+  transform: translateX(4px);
+}
+
+.modal-action-btn:active {
+  transform: translateX(4px) translateY(1px);
+}
+
+.modal-action-btn:focus-visible {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   MODAL SCALE HEADER (CANONICAL, FIXED)
+========================================================= */
+
+.modal-scale-head {
+  position: relative;
+  margin-bottom: 12px;
+
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}
+
+/* ---------- LOGO (OUT OF GRID, LIKE CLOSE BUTTON) ---------- */
+
+.modal-logo {
+  position: absolute;
+  top: 10px;
+  left: 0;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  pointer-events: none;
+  text-decoration: none;
+}
+
+.modal-logo img {
+  height: 24px;
+  width: auto;
+  display: block;
+}
+
+.modal-logo-text {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--logo-color);
+}
+
+.modal-logo-text::after {
+  content: "™";
+  font-size: 0.7em;
+  vertical-align: super;
+  margin-left: 2px;
+}
+
+/* ---------- GRID: DATA ONLY ---------- */
+
+.scale-head-grid {
+  grid-column: 2;
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto auto;
+  row-gap: 20px;
+}
+
+/* ---------- ROW 1 ---------- */
+
+.scale-head-levels {
+  display: grid;
+  grid-template-columns: 33% 34% 33%;
+  width: 100%;
+
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--main-red-color);
+}
+
+.scale-head-levels > .level {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- ROW 2 ---------- */
+
+.scale-head-values {
+  position: relative;
+  width: 100%;
+  height: 16px;
+
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-blue);
+}
+
+.scale-head-values .value {
+  position: absolute;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.scale-head-values .v0 {
+  left: 0%;
+  transform: none;
+}
+
+.scale-head-values .v33 { left: 33%; }
+.scale-head-values .v66 { left: 66%; }
+.scale-head-values .v100 { left: 100%; }
+
+/* =========================================================
+   RESULTS
+========================================================= */
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.result-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  column-gap: 24px;
+  align-items: center;
+}
+
+.result-label {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.result-title {
+  font-weight: 500;
+}
+
+.result-value {
+  font-weight: 600;
+  color: var(--primary-blue);
+}
+
+/* =========================================================
+   TABLET COMPRESSION
+========================================================= */
+
+@media (max-width: 1024px) {
+  .modal__body {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+
+  .scale-head-levels {
+    font-size: 14px;
+  }
+
+  .scale-head-values {
+    font-size: 12px;
+  }
+}
+
+/* =========================================================
+   COMPACT — BEFORE MOBILE CUT-OFF
+========================================================= */
+
+@media (max-width: 640px) {
+  .modal__body {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .modal__content {
+    width: calc(100% - 16px);
+  }
+
+  .modal-actions {
+    display: none;
+  }
+}
