@@ -47,7 +47,7 @@ export async function exportResultsToPDF() {
     filename: "results.pdf",
     image: { type: "png" },
     html2canvas: {
-      scale: 3,
+      scale: 2,
       useCORS: true,
       backgroundColor: "#ffffff",
     },

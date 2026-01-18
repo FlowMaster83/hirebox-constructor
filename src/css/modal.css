@@ -28,11 +28,20 @@
 ========================================================= */
 
 .modal__wrap {
-  position: relative;
+  position: absolute;
+  top: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+
   display: flex;
-  justify-content: center;
+  align-items: flex-start;
+
+  width: calc(100% - 32px);   /* 🔑 ВАЖНО */
+  max-width: 1320px;          /* общая ширина: модалка + кнопки */
+
   z-index: 2;
 }
+
 
 /* =========================================================
    MODAL CONTENT (CARD)
@@ -44,7 +53,7 @@
   display: flex;
   flex-direction: column;
 
-  width: calc(100% - 32px);
+  width: 100%;
   max-width: 1200px;
   max-height: 92vh;
 
@@ -53,6 +62,7 @@
   border-radius: 8px;
 
   overflow: hidden;
+  margin: 0;
 }
 
 /* =========================================================
@@ -109,15 +119,15 @@
 ========================================================= */
 
 .modal-actions {
-  position: absolute;
-  top: 88px;
-  right: -56px;
+
 
   display: flex;
   flex-direction: column;
   gap: 8px;
 
   z-index: 20;
+
+  margin-left: 8px;
 }
 
 .modal-action-btn {
