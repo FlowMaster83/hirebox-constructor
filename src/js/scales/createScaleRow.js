@@ -128,11 +128,7 @@ export function createScaleRow(labelTitle, container) {
     });
   };
 
-  /* IMPORTANT:
-     Native wheel behavior on input[type="number"] is disabled.
-     All value changes MUST go through setValue()
-     to keep scale, percent and markers in sync.
-  */
+  /* ---------- INPUT (ALWAYS WORKS) ---------- */
 
   input.addEventListener("input", () => {
     setValue(input.value);
@@ -142,16 +138,14 @@ export function createScaleRow(labelTitle, container) {
     "wheel",
     (e) => {
       e.preventDefault();
-
       const delta = Math.sign(e.deltaY);
       if (!delta) return;
-
       setValue(getValue() - delta * STEP_INPUT);
     },
     { passive: false }
   );
 
-  /* ---------- ARROWS ---------- */
+  /* ---------- ARROWS (WITH HOLD ACCELERATION) ---------- */
 
   useArrowHold({
     button: row.querySelector(".arrow-left"),
