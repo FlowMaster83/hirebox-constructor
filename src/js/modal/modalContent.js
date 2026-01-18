@@ -32,21 +32,18 @@ function renderModalScaleHeader() {
   header.className = "modal-scale-head";
 
   header.innerHTML = `
+    <a class="modal-logo" aria-hidden="true">
+      <img src="./svg/logo.svg" alt="HireBox logo" />
+      <span class="modal-logo-text">HIREBOX</span>
+    </a>
+
     <div class="scale-head-grid">
-      <div></div>
       <div class="scale-head-levels">
         <span class="level low">LOW</span>
         <span class="level average">AVERAGE</span>
         <span class="level high">HIGH</span>
       </div>
 
-      <a class="main-logo">
-        <img src="./svg/logo.svg" alt="Logo" />
-        <span class="main-logo-text">HIREBOX</span>
-      </a>
-      <div></div>
-
-      <div></div>
       <div class="scale-head-values">
         <span class="value v0">0%</span>
         <span class="value v33">33%</span>
@@ -58,6 +55,7 @@ function renderModalScaleHeader() {
 
   return header;
 }
+
 
 function renderResultRow(rowSource) {
   const row = document.createElement("div");
