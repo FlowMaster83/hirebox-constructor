@@ -87,11 +87,11 @@
 }
 
 /* =========================================================
-   ≤ 480px — MOBILE (BOTTOM HEADER, NO TOP GAP)
+   ≤ 480px — MOBILE (BOTTOM HEADER, CONTROLLED TOP GAP)
 ========================================================= */
 
 @media (max-width: 480px) {
-  /* ---------- HEADER GOES BOTTOM ---------- */
+  /* ---------- HEADER BOTTOM ---------- */
 
   .header {
     position: fixed;
@@ -104,10 +104,10 @@
     z-index: 100;
   }
 
-  /* ---------- REMOVE TOP GAP ---------- */
+  /* ---------- MAIN OFFSET (INCREASED) ---------- */
 
   main {
-    padding-top: 8px;                 /* 🔑 ключевой фикс */
+    padding-top: 20px; /* ⬅ увеличенный отступ */
     padding-bottom: calc(
       var(--header-height) + env(safe-area-inset-bottom)
     );
@@ -193,7 +193,7 @@
 }
 
 /* =========================================================
-   ≤ 512px — header height variable
+   ≤ 512px — header height
 ========================================================= */
 
 @media (max-width: 512px) {
