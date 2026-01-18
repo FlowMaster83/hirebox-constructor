@@ -1,14 +1,38 @@
-// src/js/controls/createHeaderControls.js
+// src/js/header/createHeaderControls.js
 
 import { createThemeToggleButton } from "../theme/themeButton.js";
 import { resetAllScales } from "../state/scaleRegistry.js";
+import { modalAutoClosed } from "../modal/modal.js";
 
 const MAX = 100;
 const STEP = 1;
 const MODAL_MIN_WIDTH = 641;
 
+/* =========================================================
+   UTILS
+========================================================= */
+
 function isModalAllowed() {
   return window.innerWidth >= MODAL_MIN_WIDTH;
+}
+
+/**
+ * RESULT включён только если:
+ * – позволяет брейкпоинт
+ * – модалка не была автозакрыта
+ */
+function updateResultButtonState(button) {
+  if (!button) return;
+
+  const enabled = isModalAllowed();
+
+  button.disabled = !enabled;
+
+  if (enabled) {
+    button.removeAttribute("aria-disabled");
+  } else {
+    button.setAttribute("aria-disabled", "true");
+  }
 }
 
 function normalizeValue(raw) {
@@ -30,6 +54,10 @@ function applyValueToAllScales(value) {
     input.dispatchEvent(new Event("input", { bubbles: true }));
   });
 }
+
+/* =========================================================
+   HEADER CONTROLS
+========================================================= */
 
 export function createHeaderControls(rootId) {
   const root = document.getElementById(rootId);
@@ -54,17 +82,15 @@ export function createHeaderControls(rootId) {
   input.inputMode = "numeric";
   input.placeholder = "0";
 
-  /* RESULT BUTTON (DESKTOP / TABLET ONLY) */
+  /* RESULT BUTTON */
 
-  let resultBtn = null;
+  const resultBtn = document.createElement("button");
+  resultBtn.className = "header-result-btn";
+  resultBtn.type = "button";
+  resultBtn.textContent = "RESULT";
+  resultBtn.dataset.openModal = "true";
 
-  if (isModalAllowed()) {
-    resultBtn = document.createElement("button");
-    resultBtn.className = "header-result-btn";
-    resultBtn.type = "button";
-    resultBtn.textContent = "RESULT";
-    resultBtn.dataset.openModal = "true";
-  }
+  updateResultButtonState(resultBtn);
 
   /* CLEAR ALL */
 
@@ -134,13 +160,19 @@ export function createHeaderControls(rootId) {
   wrapper.append(
     label,
     input,
-    ...(resultBtn ? [resultBtn] : []),
+    resultBtn,
     clearBtn,
     langBtn,
     themeContainer
   );
 
   root.appendChild(wrapper);
+
+  /* RESIZE SYNC */
+
+  window.addEventListener("resize", () => {
+    updateResultButtonState(resultBtn);
+  });
 
   return {
     input,

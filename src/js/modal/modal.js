@@ -1,4 +1,4 @@
-// modal.js
+// src/js/modal/modal.js
 import { renderModalResults } from "./modalContent.js";
 
 /* =========================================================
@@ -13,6 +13,9 @@ const MODAL_MIN_WIDTH = 641;
 
 let modalRoot = null;
 let lastFocusedElement = null;
+
+// 🔴 экспортируемый флаг автозакрытия
+export let modalAutoClosed = false;
 
 /* =========================================================
    UTILS
@@ -70,9 +73,22 @@ function createModal() {
    OPEN / CLOSE
 ========================================================= */
 
+let scrollY = 0;
+
 export function openModal() {
   if (!isModalAllowed()) return;
 
+  // сохраняем текущую позицию
+  scrollY = window.scrollY;
+
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.left = "0";
+  document.body.style.right = "0";
+  document.body.style.width = "100%";
+
+  // дальше — твой текущий код
+  modalAutoClosed = false;
   lastFocusedElement = document.activeElement;
 
   const result = renderModalResults();
@@ -87,39 +103,35 @@ export function openModal() {
   modal.classList.add("is-open");
   modal.setAttribute("aria-hidden", "false");
 
-  document.body.style.overflow = "hidden";
-
   modal.querySelector(".modal-close-btn")?.focus();
-
-  // actions — заглушки (pre-A4)
-  modal.querySelector('[data-action="pdf"]').onclick = () =>
-    console.log("PDF");
-  modal.querySelector('[data-action="png"]').onclick = () =>
-    console.log("PNG");
-  modal.querySelector('[data-action="print"]').onclick = () =>
-    console.log("PRINT");
 }
+
 
 export function closeModal() {
   if (!isModalOpen()) return;
 
-  // 1. Если фокус сейчас внутри модалки — убираем его
   const active = document.activeElement;
   if (modalRoot.contains(active)) {
     active.blur();
   }
 
-  // 2. Возвращаем фокус туда, откуда пришли
   if (lastFocusedElement?.focus) {
     lastFocusedElement.focus();
   }
 
-  // 3. Теперь безопасно скрываем модалку для a11y
   modalRoot.classList.remove("is-open");
   modalRoot.setAttribute("aria-hidden", "true");
 
   modalRoot.querySelector(".modal__body").innerHTML = "";
-  document.body.style.overflow = "";
+
+  // восстановление скролла
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.left = "";
+  document.body.style.right = "";
+  document.body.style.width = "";
+
+  window.scrollTo(0, scrollY);
 }
 
 
@@ -146,11 +158,11 @@ document.addEventListener("keydown", (e) => {
 
 /**
  * ≤640px — модалки не существует
- * Закрываем её ЛОГИЧЕСКИ, а не только визуально
+ * автозакрытие фиксируем флагом
  */
 window.addEventListener("resize", () => {
   if (!isModalAllowed() && isModalOpen()) {
+    modalAutoClosed = true;
     closeModal();
   }
 });
- 
