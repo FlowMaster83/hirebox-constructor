@@ -11,6 +11,7 @@ const MODAL_MIN_WIDTH = 641;
 ========================================================= */
 
 let modalRoot = null;
+let lastFocusedElement = null;
 
 /* =========================================================
    UTILS
@@ -66,6 +67,9 @@ export function openModal(contentNode) {
   if (!contentNode) return;
   if (!isModalAllowed()) return;
 
+  // 🔑 сохраняем элемент, который имел фокус
+  lastFocusedElement = document.activeElement;
+
   const modal = createModal();
   const body = modal.querySelector(".modal__body");
 
@@ -76,10 +80,21 @@ export function openModal(contentNode) {
   modal.setAttribute("aria-hidden", "false");
 
   document.body.style.overflow = "hidden";
+
+  // переводим фокус в модалку (на кнопку закрытия)
+  const closeBtn = modal.querySelector(".modal-close-btn");
+  closeBtn?.focus();
 }
 
 export function closeModal() {
   if (!isModalOpen()) return;
+
+  // 🔑 СНАЧАЛА уводим фокус ИЗ модалки
+  if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+    lastFocusedElement.focus();
+  } else {
+    document.body.focus();
+  }
 
   modalRoot.classList.remove("is-open");
   modalRoot.setAttribute("aria-hidden", "true");
