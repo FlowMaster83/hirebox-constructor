@@ -31,15 +31,18 @@
   position: absolute;
   top: 5vh;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(calc(-50% + 60px));
 
   display: flex;
   align-items: flex-start;
 
-  width: calc(100% - 32px);   /* 🔑 ВАЖНО */
-  max-width: 1320px;          /* общая ширина: модалка + кнопки */
+  width: calc(100% - 32px);
+  /* 🔑 ВАЖНО */
+  max-width: 1320px;
+  /* общая ширина: модалка + кнопки */
 
   z-index: 2;
+  pointer-events: none;
 }
 
 
@@ -119,15 +122,16 @@
 ========================================================= */
 
 .modal-actions {
-
-
   display: flex;
   flex-direction: column;
   gap: 8px;
-
   z-index: 20;
-
   margin-left: 8px;
+}
+
+.modal__content,
+.modal-actions {
+  pointer-events: auto;
 }
 
 .modal-action-btn {
