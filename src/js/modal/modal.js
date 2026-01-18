@@ -103,17 +103,25 @@ export function openModal() {
 export function closeModal() {
   if (!isModalOpen()) return;
 
+  // 1. Если фокус сейчас внутри модалки — убираем его
+  const active = document.activeElement;
+  if (modalRoot.contains(active)) {
+    active.blur();
+  }
+
+  // 2. Возвращаем фокус туда, откуда пришли
+  if (lastFocusedElement?.focus) {
+    lastFocusedElement.focus();
+  }
+
+  // 3. Теперь безопасно скрываем модалку для a11y
   modalRoot.classList.remove("is-open");
   modalRoot.setAttribute("aria-hidden", "true");
 
   modalRoot.querySelector(".modal__body").innerHTML = "";
   document.body.style.overflow = "";
-
-  // возвращаем фокус ПОСЛЕ закрытия
-  if (lastFocusedElement?.focus) {
-    lastFocusedElement.focus();
-  }
 }
+
 
 /* =========================================================
    GLOBAL EVENTS
@@ -145,3 +153,4 @@ window.addEventListener("resize", () => {
     closeModal();
   }
 });
+ 
