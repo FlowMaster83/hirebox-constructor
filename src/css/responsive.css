@@ -45,6 +45,18 @@
    481–640px — mobile WITHOUT arrows
 ========================================================= */
 
+@media (max-width: 640px) {
+
+  /* 🔑 убираем "Fill all:" */
+  .header-label {
+    display: none;
+  }
+
+  .header-result-btn {
+    display: none;
+  }
+}
+
 @media (max-width: 640px) and (min-width: 481px) {
   .scale-row {
     grid-template-columns: 1fr;
@@ -96,8 +108,8 @@
 ========================================================= */
 
 @media (max-width: 480px) {
-  /* ---------- HEADER ---------- */
 
+  /* ---------- HEADER ---------- */
   .header {
     position: fixed;
     top: auto;
@@ -109,18 +121,11 @@
     z-index: 100;
   }
 
-  /* 🔑 убираем "Fill all:" */
-  .header-label {
-    display: none;
-  }
-
   /* ---------- MAIN OFFSET ---------- */
 
   main {
     padding-top: 20px;
-    padding-bottom: calc(
-      var(--header-height) + env(safe-area-inset-bottom)
-    );
+    padding-bottom: calc(var(--header-height) + env(safe-area-inset-bottom));
   }
 
   /* ---------- SCALE LAYOUT ---------- */
@@ -214,13 +219,17 @@
   :root {
     --header-height: 60px;
   }
+
+  .main-logo-text {
+    font-size: 12px;
+  }
 }
 
 /* =========================================================
    ≤ 440px — logo
 ========================================================= */
 
-@media (max-width: 440px) {
+@media (max-width: 480px) {
   .main-logo-text {
     display: none;
   }
