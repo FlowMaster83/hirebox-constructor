@@ -14,7 +14,7 @@ const MODAL_MIN_WIDTH = 641;
 let modalRoot = null;
 let lastFocusedElement = null;
 
-// 🔴 экспортируемый флаг автозакрытия
+// флаг используется ТОЛЬКО для логики автозакрытия
 export let modalAutoClosed = false;
 
 /* =========================================================
@@ -78,7 +78,7 @@ let scrollY = 0;
 export function openModal() {
   if (!isModalAllowed()) return;
 
-  // сохраняем текущую позицию
+  // фиксируем позицию скролла
   scrollY = window.scrollY;
 
   document.body.style.position = "fixed";
@@ -87,7 +87,6 @@ export function openModal() {
   document.body.style.right = "0";
   document.body.style.width = "100%";
 
-  // дальше — твой текущий код
   modalAutoClosed = false;
   lastFocusedElement = document.activeElement;
 
@@ -105,7 +104,6 @@ export function openModal() {
 
   modal.querySelector(".modal-close-btn")?.focus();
 }
-
 
 export function closeModal() {
   if (!isModalOpen()) return;
@@ -134,7 +132,6 @@ export function closeModal() {
   window.scrollTo(0, scrollY);
 }
 
-
 /* =========================================================
    GLOBAL EVENTS
 ========================================================= */
@@ -158,7 +155,7 @@ document.addEventListener("keydown", (e) => {
 
 /**
  * ≤640px — модалки не существует
- * автозакрытие фиксируем флагом
+ * автозакрытие без автопоявления
  */
 window.addEventListener("resize", () => {
   if (!isModalAllowed() && isModalOpen()) {

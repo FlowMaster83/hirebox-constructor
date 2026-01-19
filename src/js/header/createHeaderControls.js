@@ -2,7 +2,6 @@
 
 import { createThemeToggleButton } from "../theme/themeButton.js";
 import { resetAllScales } from "../state/scaleRegistry.js";
-import { modalAutoClosed } from "../modal/modal.js";
 
 const MAX = 100;
 const STEP = 1;
@@ -17,9 +16,9 @@ function isModalAllowed() {
 }
 
 /**
- * RESULT включён только если:
- * – позволяет брейкпоинт
- * – модалка не была автозакрыта
+ * RESULT:
+ * – disabled ТОЛЬКО при ≤640
+ * – всегда enabled при >640
  */
 function updateResultButtonState(button) {
   if (!button) return;
@@ -27,11 +26,11 @@ function updateResultButtonState(button) {
   const enabled = isModalAllowed();
 
   button.disabled = !enabled;
+  button.setAttribute("aria-disabled", String(!enabled));
 
-  if (enabled) {
-    button.removeAttribute("aria-disabled");
-  } else {
-    button.setAttribute("aria-disabled", "true");
+  // сбрасываем залипший focus / active при resize
+  if (!enabled && document.activeElement === button) {
+    button.blur();
   }
 }
 
