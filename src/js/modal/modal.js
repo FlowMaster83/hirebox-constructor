@@ -1,5 +1,6 @@
 // src/js/modal/modal.js
 import { renderModalResults } from "./modalContent.js";
+import { exportResultsToPng } from "../outerContent/png.js";
 
 /* =========================================================
    CONFIG
@@ -63,6 +64,14 @@ function createModal() {
     </div>
   `;
 
+  const pngButton = modal.querySelector('[data-action="png"]');
+
+  if (pngButton) {
+    pngButton.addEventListener("click", () => {
+      exportResultsToPng();
+    });
+  }
+
   document.body.appendChild(modal);
   modalRoot = modal;
 
@@ -106,7 +115,6 @@ export function openModal() {
   modal.querySelector(".modal-close-btn")?.focus();
 }
 
-
 export function closeModal() {
   if (!isModalOpen()) return;
 
@@ -133,7 +141,6 @@ export function closeModal() {
 
   window.scrollTo(0, scrollY);
 }
-
 
 /* =========================================================
    GLOBAL EVENTS
