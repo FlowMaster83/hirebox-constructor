@@ -60,7 +60,7 @@ export function exportResultsToPng() {
   // --- EXPORT PNG ---
   htmlToImage
     .toPng(clone, {
-      pixelRatio: 1, // STRICT 1:1 scale
+      pixelRatio: 2, // STRICT 1:1 scale
       cacheBust: false,
     })
     .then((dataUrl) => {
