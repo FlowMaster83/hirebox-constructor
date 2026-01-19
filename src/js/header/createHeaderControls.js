@@ -2,6 +2,7 @@
 
 import { createThemeToggleButton } from "../theme/themeButton.js";
 import { resetAllScales } from "../state/scaleRegistry.js";
+import { modalAutoClosed } from "../modal/modal.js";
 
 const MAX = 100;
 const STEP = 1;
@@ -15,18 +16,21 @@ function isModalAllowed() {
   return window.innerWidth >= MODAL_MIN_WIDTH;
 }
 
-function setResultState(button, state) {
-  // state: "normal" | "active" | "disabled"
-  button.classList.remove("is-active");
-  button.disabled = false;
-  button.setAttribute("aria-disabled", "false");
+/**
+ * RESULT включён только если:
+ * – позволяет брейкпоинт
+ * – модалка не была автозакрыта
+ */
+function updateResultButtonState(button) {
+  if (!button) return;
 
-  if (state === "active") {
-    button.classList.add("is-active");
-  }
+  const enabled = isModalAllowed();
 
-  if (state === "disabled") {
-    button.disabled = true;
+  button.disabled = !enabled;
+
+  if (enabled) {
+    button.removeAttribute("aria-disabled");
+  } else {
     button.setAttribute("aria-disabled", "true");
   }
 }
@@ -64,9 +68,13 @@ export function createHeaderControls(rootId) {
   const wrapper = document.createElement("div");
   wrapper.className = "header-options";
 
+  /* LABEL */
+
   const label = document.createElement("p");
   label.className = "header-label";
   label.textContent = "Fill all:";
+
+  /* MASTER INPUT */
 
   const input = document.createElement("input");
   input.className = "user-input";
@@ -74,58 +82,35 @@ export function createHeaderControls(rootId) {
   input.inputMode = "numeric";
   input.placeholder = "0";
 
+  /* RESULT BUTTON */
+
   const resultBtn = document.createElement("button");
   resultBtn.className = "header-result-btn";
   resultBtn.type = "button";
   resultBtn.textContent = "RESULT";
   resultBtn.dataset.openModal = "true";
 
+  updateResultButtonState(resultBtn);
+
+  /* CLEAR ALL */
+
   const clearBtn = document.createElement("button");
   clearBtn.className = "clear-all-btn";
   clearBtn.type = "button";
   clearBtn.textContent = "CLEAR ALL";
+
+  /* LANGUAGE */
 
   const langBtn = document.createElement("button");
   langBtn.className = "lang-toggle-btn button";
   langBtn.type = "button";
   langBtn.textContent = "UA";
 
+  /* THEME */
+
   const themeContainer = document.createElement("div");
   themeContainer.className = "theme-toggle";
   createThemeToggleButton(themeContainer);
-
-  /* INITIAL STATE */
-
-  if (isModalAllowed()) {
-    setResultState(resultBtn, "normal");
-  } else {
-    setResultState(resultBtn, "disabled");
-  }
-
-  /* MODAL EVENTS */
-
-  document.addEventListener("modal:open", () => {
-    setResultState(resultBtn, "active");
-  });
-
-  document.addEventListener("modal:close", () => {
-    if (!isModalAllowed()) {
-      setResultState(resultBtn, "disabled");
-    } else {
-      setResultState(resultBtn, "normal");
-    }
-  });
-
-  /* RESIZE */
-
-  window.addEventListener("resize", () => {
-    if (!isModalAllowed()) {
-      setResultState(resultBtn, "disabled");
-    } else {
-      // при возврате >640 — всегда normal
-      setResultState(resultBtn, "normal");
-    }
-  });
 
   /* INPUT HANDLERS */
 
@@ -163,10 +148,14 @@ export function createHeaderControls(rootId) {
     { passive: false }
   );
 
+  /* CLEAR ALL */
+
   clearBtn.addEventListener("click", () => {
     resetAllScales();
     input.value = "";
   });
+
+  /* APPEND */
 
   wrapper.append(
     label,
@@ -179,5 +168,16 @@ export function createHeaderControls(rootId) {
 
   root.appendChild(wrapper);
 
-  return { input, clearBtn, resultBtn, langBtn };
+  /* RESIZE SYNC */
+
+  window.addEventListener("resize", () => {
+    updateResultButtonState(resultBtn);
+  });
+
+  return {
+    input,
+    clearBtn,
+    resultBtn,
+    langBtn,
+  };
 }
