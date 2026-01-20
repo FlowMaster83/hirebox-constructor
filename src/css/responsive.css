@@ -212,11 +212,29 @@
 }
 
 /* =========================================================
-   ≤ 440px — logo
+   ≤ 480px — logo
 ========================================================= */
 
 @media (max-width: 480px) {
   .main-logo-text {
     display: none;
+  }
+}
+
+@media (max-width: 440px) {
+  .header-options {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .main-logo {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    color: var(--logo-color);
+    text-decoration: none;
+    cursor: pointer;
   }
 }
