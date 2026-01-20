@@ -3,7 +3,6 @@
 /**
  * Формирует содержимое модалки с результатами
  * Используется ТОЛЬКО для UI
- * PDF-модель будет строиться отдельно (A4)
  */
 export function renderModalResults() {
   const root = document.createElement("div");

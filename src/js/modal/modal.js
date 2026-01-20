@@ -58,7 +58,6 @@ function createModal() {
       </div>
 
       <div class="modal-actions">
-        <button class="modal-action-btn" data-action="pdf">PDF</button>
         <button class="modal-action-btn" data-action="png">PNG</button>
         <button class="modal-action-btn" data-action="print">PRINT</button>
       </div>
