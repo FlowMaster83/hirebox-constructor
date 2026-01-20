@@ -85,7 +85,7 @@
   border-radius: 6px;
   border: 1px solid var(--border-color);
   background: var(--button-result-background-color);
-  color: var(--button-text);
+  color: var(--button-result-text);
 
   cursor: pointer;
   white-space: nowrap;
@@ -111,7 +111,7 @@
   border-radius: 6px;
   border: 1px solid var(--border-color);
   background: var(--button-png-background-color);
-  color: var(--button-text);
+  color: var(--button-png-text);
 
   cursor: pointer;
   white-space: nowrap;

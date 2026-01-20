@@ -19,5 +19,9 @@
   --button-text-color: #f0f0f0;
   --button-hover-color: #ffffff;
   --button-hover-background-color: #242833;
+  --button-result-text: #fff;
+  --button-result-background-color: #6E9611;
+  --button-png-text: #fff;
+  --button-png-background-color: #6E9611;
   --modal-overlay-color: rgba(0, 0, 0, 0.65);
 }
