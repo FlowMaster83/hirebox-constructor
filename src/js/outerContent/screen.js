@@ -51,7 +51,6 @@ export function exportResultsToPng() {
   htmlToImage
     .toPng(exportRoot, {
       pixelRatio: 2,
-      skipFonts: true,
     })
     .then((dataUrl) => {
       downloadPng(dataUrl, "results.png");
