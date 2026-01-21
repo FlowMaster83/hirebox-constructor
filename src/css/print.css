@@ -4,180 +4,197 @@
 
 @media print {
 
-  /* =======================================================
+    /* =======================================================
      PAGE
   ======================================================= */
 
-  @page {
-    size: A4 portrait;
-    margin: 18mm 16mm;
-  }
+    @page {
+        size: A4 portrait;
+        margin: 18mm 16mm;
+    }
 
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: #ffffff;
-    color: #333;
-    font-family: "Geologica", -apple-system, BlinkMacSystemFont,
-      "Segoe UI", Roboto, Arial, sans-serif;
+    html, body {
+        margin: 0;
+        padding: 0;
+        background: #ffffff;
+        color: #333;
+        font-family: "Geologica", -apple-system, BlinkMacSystemFont,
+            "Segoe UI", Roboto, Arial, sans-serif;
 
-    /* 🔴 КРИТИЧНО */
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
+        /* 🔴 КРИТИЧНО */
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
 
-  /* =======================================================
+    /* =======================================================
      DESIGN TOKENS (FROM base.css)
   ======================================================= */
 
-  :root {
-    --main-red-color: #FB3D3F;
-    --logo-color: #FB3D3F;
+    :root {
+        --main-red-color: #FB3D3F;
+        --logo-color: #FB3D3F;
 
-    --primary-blue: #0059b3;
-    --secondary-blue: #7ec0ee;
+        --primary-blue: #0059b3;
+        --secondary-blue: #7ec0ee;
 
-    --scale-bg-color: #e0e0e0;
-    --scale-digits-color: #555;
-    --scale-digits-bold-color: #333;
+        --scale-bg-color: #e0e0e0;
+        --scale-digits-color: #555;
+        --scale-digits-bold-color: #333;
 
-    --tick-bg-color: #999;
-    --markers-color: #FB3D3F;
-  }
+        --tick-bg-color: #999;
+        --markers-color: #FB3D3F;
+    }
 
-  /* =======================================================
+    /* =======================================================
      ISOLATION
   ======================================================= */
 
-  body > * {
-    display: none !important;
-  }
+    body>* {
+        display: none !important;
+    }
 
-  #print-root {
-    display: block !important;
-  }
+    #print-root {
+        display: block !important;
+    }
 
-  /* =======================================================
+    /* =======================================================
      HEADER
   ======================================================= */
 
-  .modal-scale-head {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    margin-bottom: 10px;
-    position: relative;
-  }
+    .modal-scale-head {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        margin-bottom: 10px;
+        position: relative;
+    }
 
-  .modal-logo {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
+    .modal-logo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
 
-  .modal-logo img {
-    height: 32px;
-  }
+    .modal-logo img {
+        height: 32px;
+    }
 
-  .modal-logo-text {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--logo-color);
-  }
+    .modal-logo-text {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--logo-color);
+    }
 
-  .modal-logo-text::after {
-    content: "™";
-    font-size: 0.7em;
-    vertical-align: super;
-    margin-left: 2px;
-  }
+    .modal-logo-text::after {
+        content: "™";
+        font-size: 0.7em;
+        vertical-align: super;
+        margin-left: 2px;
+    }
 
-  .scale-head-grid {
-    grid-column: 2;
-    display: grid;
-    grid-template-rows: auto auto;
-    row-gap: 4px;
-  }
+    .scale-head-grid {
+        grid-column: 2;
+        display: grid;
+        grid-template-rows: auto auto;
+        row-gap: 4px;
+    }
 
-  .scale-head-levels {
-    display: grid;
-    grid-template-columns: 33% 34% 33%;
-    text-align: center;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--main-red-color);
-  }
+    .scale-head-levels {
+        display: grid;
+        grid-template-columns: 33% 34% 33%;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--main-red-color);
+    }
 
-  .scale-head-values {
-    position: relative;
-    height: 14px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--primary-blue);
-  }
+    .scale-head-values {
+        position: relative;
+        height: 14px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--primary-blue);
+    }
 
-  .scale-head-values .value {
-    position: absolute;
-    transform: translateX(-50%);
-  }
+    .scale-head-values .value {
+        position: absolute;
+        transform: translateX(-50%);
+    }
 
-  .scale-head-values .v0 { left: 0%; transform: none; }
-  .scale-head-values .v33 { left: 33%; }
-  .scale-head-values .v66 { left: 66%; }
-  .scale-head-values .v100 { left: 100%; }
+    .scale-head-values .v0 {
+        left: 4%;
+        transform: none;
+    }
 
-  /* =======================================================
+    .scale-head-values .v33 {
+        left: 33%;
+    }
+
+    .scale-head-values .v66 {
+        left: 66%;
+    }
+
+    .scale-head-values .v100 {
+        left: 96%;
+    }
+
+    /* =======================================================
      ROWS
   ======================================================= */
 
-  .result-row {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    column-gap: 24px;
-    align-items: center;
-    break-inside: avoid;
-  }
+    .results {
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+    }
 
-  .result-label {
-    font-size: 14px;
-  }
+    .result-row {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        column-gap: 24px;
+        align-items: center;
+        break-inside: avoid;
+    }
 
-  .result-value {
-    font-weight: 700;
-    color: var(--primary-blue);
-  }
+    .result-label {
+        font-size: 14px;
+    }
 
-  /* =======================================================
+    .result-value {
+        font-weight: 700;
+        color: var(--primary-blue);
+    }
+
+    /* =======================================================
      SCALE — PRINT SAFE
   ======================================================= */
 
-  .chart-wrapper {
-    height: 20px;
-    width: 100%;
-  }
+    .chart-wrapper {
+        height: 20px;
+        width: 100%;
+    }
 
-  .chart-track {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-color: var(--scale-bg-color);
-    border: 1px solid #b5b5b5;
-    border-radius: 6px;
-  }
+    .chart-track {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color: var(--scale-bg-color);
+        border-radius: 4px;
+    }
 
-  .chart-fill {
-    height: 100%;
-    background-color: var(--primary-blue);
-    border-radius: 6px;
-  }
+    .chart-fill {
+        height: 100%;
+        background-color: var(--primary-blue);
+        border-radius: 4px;
+    }
 
-  /* =======================================================
+    /* =======================================================
      TICKS
   ======================================================= */
 
-  .ticks {
+    /*   .ticks {
     position: absolute;
     inset: 0;
     pointer-events: none;
@@ -202,15 +219,14 @@
   .tick--major {
     font-weight: 600;
     color: var(--scale-digits-bold-color);
-  }
+  } */
 
-  /* =======================================================
+    /* =======================================================
      MARKERS (SVG, AS IS)
   ======================================================= */
 
-  .chart-marker {
-    display: block !important;
-    transform: translate(-50%, -50%) scale(0.75);
-  }
-
+    .chart-marker {
+        display: block !important;
+        transform: translate(-50%, -50%) scale(0.75);
+    }
 }
