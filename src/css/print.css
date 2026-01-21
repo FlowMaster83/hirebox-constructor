@@ -156,6 +156,7 @@
         column-gap: 24px;
         align-items: center;
         break-inside: avoid;
+        min-height: 6px;
     }
 
     .result-label {
@@ -229,4 +230,12 @@
         display: block !important;
         transform: translate(-50%, -50%) scale(0.75);
     }
+
+    /*     .print-date {
+        position: absolute;
+        top: -3;
+        left: 0;
+        font-size: 12px;
+        color: #555;
+    } */
 }

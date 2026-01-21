@@ -12,6 +12,14 @@ export function printResults() {
   printRoot.appendChild(source.cloneNode(true));
   document.body.appendChild(printRoot);
 
+  // const date = new Date().toLocaleDateString("uk-UA");
+
+  // const dateNode = document.createElement("div");
+  // dateNode.className = "print-date";
+  // dateNode.textContent = date;
+
+  // printRoot.appendChild(dateNode);
+
   // печать
   window.print();
 
