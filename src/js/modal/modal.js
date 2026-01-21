@@ -58,8 +58,8 @@ function createModal() {
       </div>
 
       <div class="modal-actions">
-        <button class="modal-action-btn" data-action="png">PNG</button>
         <button class="modal-action-btn" data-action="print">PRINT</button>
+        <button class="modal-action-btn" data-action="png">SCREEN</button>
       </div>
     </div>
   `;
