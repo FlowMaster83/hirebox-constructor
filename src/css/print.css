@@ -1,93 +1,222 @@
-/* print.css */
+/* =========================================================
+   PRINT — RESULTS DOCUMENT (CANONICAL)
+   Полная изоляция от UI / modal / themes
+========================================================= */
+
 @media print {
-    * {
-        box-shadow: none !important;
-        text-shadow: none !important;
-        filter: none !important;
-    }
 
-    body {
-        position: static !important;
-        top: auto !important;
-        left: auto !important;
-        right: auto !important;
-        width: auto !important;
-        overflow: visible !important;
+  /* =======================================================
+     0. RESET + PAGE
+  ======================================================= */
 
-        font-size: 12pt;
-        line-height: 1.4;
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
-        margin: 0;
-        padding: 0;
-        background: #fff;
-        color: #000;
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    color: #000000;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+  }
 
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-    }
+  @page {
+    size: A4 portrait;
+    margin: 18mm 16mm;
+  }
 
-    .header,
-    .modal__overlay,
-    .modal-actions,
-    button {
-        display: none !important;
-    }
+  /* =======================================================
+     1. HIDE EVERYTHING EXCEPT RESULTS
+  ======================================================= */
 
-    .modal,
-    .modal__wrap,
-    .modal__content {
-        position: static !important;
-        inset: auto !important;
-        width: auto !important;
-        max-width: none !important;
-        height: auto !important;
-    }
+  body > * {
+    display: none !important;
+  }
 
-    .modal__content {
-        box-shadow: none;
-        border: none;
-    }
+  [data-modal-results],
+  [data-modal-results] * {
+    display: revert !important;
+  }
 
-    .modal__body {
-        display: block;
-    }
+  /* =======================================================
+     2. ROOT CONTAINER
+  ======================================================= */
 
-    .chart-track {
-        background: #000;
-        height: 2px;
-    }
+  .modal-results {
+    width: 100%;
+  }
 
-    .tick,
-    .tick--major {
-        color: #000;
-        font-weight: 600;
-    }
+  .results {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
 
-    .chart-marker {
-        color: #000;
-        opacity: 1;
-    }
+  /* =======================================================
+     3. HEADER (LOGO + SCALE)
+  ======================================================= */
 
-    .scale-label {
-        font-weight: 700;
-    }
+  .modal-scale-head {
+    position: relative;
+    margin-bottom: 10px;
 
-    .scale-row {
-        break-inside: avoid;
-        page-break-inside: avoid;
-    }
+    display: grid;
+    grid-template-columns: 200px 1fr;
+  }
 
-    .scale-group,
-    .scale-section {
-        break-inside: avoid;
-    }
+  /* ---------- LOGO ---------- */
 
-    input,
-    select,
-    textarea,
-    .scale-input,
-    .scale-value,
-    .value {
-        display: none !important;
-    }
+  .modal-logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    text-decoration: none;
+    pointer-events: none;
+  }
+
+  .modal-logo img {
+    height: 22px;
+    width: auto;
+    display: block;
+  }
+
+  .modal-logo-text {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    color: #000000;
+  }
+
+  .modal-logo-text::after {
+    content: "™";
+    font-size: 0.7em;
+    vertical-align: super;
+    margin-left: 2px;
+  }
+
+  /* ---------- SCALE GRID ---------- */
+
+  .scale-head-grid {
+    grid-column: 2;
+    display: grid;
+    grid-template-rows: auto auto;
+    row-gap: 4px;
+  }
+
+  .scale-head-levels {
+    display: grid;
+    grid-template-columns: 33% 34% 33%;
+
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #c62828; /* canonical red */
+  }
+
+  .scale-head-values {
+    position: relative;
+    height: 14px;
+
+    font-size: 13px;
+    font-weight: 600;
+    color: #1565c0; /* canonical blue */
+  }
+
+  .scale-head-values .value {
+    position: absolute;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  .scale-head-values .v0 {
+    left: 0%;
+    transform: none;
+  }
+
+  .scale-head-values .v33 { left: 33%; }
+  .scale-head-values .v66 { left: 66%; }
+  .scale-head-values .v100 { left: 100%; }
+
+  /* =======================================================
+     4. RESULT ROWS
+  ======================================================= */
+
+  .result-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    column-gap: 24px;
+    align-items: center;
+  }
+
+  .result-label {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .result-title {
+    font-weight: 500;
+  }
+
+  .result-value {
+    font-weight: 600;
+    color: #1565c0;
+  }
+
+  /* =======================================================
+     5. SCALE BAR (TRACK)
+  ======================================================= */
+
+  .result-scale {
+    width: 100%;
+  }
+
+  .chart-wrapper {
+    width: 100%;
+  }
+
+  .chart-track {
+    position: relative;
+    height: 8px;
+    border-radius: 4px;
+    background: #e0e0e0;
+    overflow: hidden;
+  }
+
+  .chart-fill {
+    height: 100%;
+    background: #1565c0;
+    border-radius: 4px 0 0 4px;
+  }
+
+  /* ---------- MARKERS ---------- */
+
+  .chart-marker {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+    background: #c62828;
+  }
+
+  /* =======================================================
+     6. SAFETY: NO PAGE BREAKS
+  ======================================================= */
+
+  .modal-scale-head,
+  .result-row {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
 }
