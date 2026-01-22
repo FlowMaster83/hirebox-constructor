@@ -41,5 +41,6 @@ export function initHeaderControls() {
     langBtn.textContent = LANGS[currentLangIndex].toUpperCase();
 
     updateScaleLabels();
+    document.documentElement.lang = LANGS[currentLangIndex];
   });
 }
