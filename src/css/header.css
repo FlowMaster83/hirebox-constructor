@@ -1,4 +1,6 @@
-/* header.css */
+/* =========================================================
+   HEADER
+========================================================= */
 
 .header {
   box-sizing: border-box;
@@ -26,7 +28,10 @@
   box-sizing: border-box;
 }
 
-/* === ЛОГОТИП === */
+/* =========================================================
+   LOGO
+========================================================= */
+
 .main-logo {
   flex-shrink: 0;
   display: flex;
@@ -37,7 +42,6 @@
   cursor: pointer;
 }
 
-/* SVG внутри */
 .main-logo img {
   height: var(--logo-height);
   width: auto;
@@ -57,7 +61,10 @@
   margin-left: 2px;
 }
 
-/* контролы */
+/* =========================================================
+   HEADER CONTROLS
+========================================================= */
+
 .header-options {
   min-width: 0;
   display: flex;
@@ -73,72 +80,64 @@
   opacity: 0.8;
 }
 
-/* === RESULT BUTTON === */
+/* =========================================================
+   RESULT BUTTON (STATELESS, RESET VIA DOM)
+========================================================= */
 
 .header-result-btn {
   height: 32px;
   padding: 0 14px;
+
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
 
   border-radius: 6px;
   border: 1px solid var(--border-color);
+
   background-color: var(--button-result-background-color);
   color: var(--button-text-color);
 
-  outline: none;
-  box-shadow: none;
-
   cursor: pointer;
   white-space: nowrap;
+
+  outline: none;
+  box-shadow: none;
 }
 
+/* hover — только визуальный, без состояния */
 .header-result-btn:hover {
-  background: var(--button-bg-hover);
+  background-color: var(--button-bg-hover);
 }
 
+/* active — лёгкий тактильный фидбек */
 .header-result-btn:active {
   transform: translateY(1px);
 }
 
+/* полностью убираем browser focus */
 .header-result-btn:focus,
-.header-result-btn:focus-visible,
-.header-result-btn:active {
+.header-result-btn:focus-visible {
   outline: none;
   box-shadow: none;
 }
 
-
-/* RESULT — состояние при открытой модалке */
-.header-result-btn.is-modal-open {
-  background-color: var(--button-result-background-color);
-  color: var(--button-result-text);
-
-  outline: none;
-  box-shadow: none;
-}
-
-/* убираем влияние focus/active */
-.header-result-btn.is-modal-open:focus,
-.header-result-btn.is-modal-open:active {
-  outline: none;
-  box-shadow: none;
-}
-
-
-/* === PNG BUTTON === */
+/* ======================================================
+  PNG BUTTON
+========================================================= */
 
 .header-png-btn {
   height: 32px;
   padding: 0 14px;
+
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
 
   border-radius: 6px;
   border: 1px solid var(--border-color);
-  background: var(--button-png-background-color);
+
+  background-color: var(--button-png-background-color);
   color: var(--button-png-text);
 
   cursor: pointer;
