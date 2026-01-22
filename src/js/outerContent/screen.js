@@ -2,8 +2,6 @@ import { renderModalResults } from "../modal/modalContent.js";
 
 /* global htmlToImage */
 
-const EXPORT_WIDTH = 768;
-
 /* =========================================================
    UTILS
 ========================================================= */
@@ -38,65 +36,56 @@ function downloadPng(dataUrl, filename) {
 ========================================================= */
 
 export async function exportResultsToPng() {
-  // --- BUILD VIRTUAL DOCUMENT ---
-  const exportRoot = document.createElement("div");
-  exportRoot.className = "modal__content";
+  document.documentElement.classList.add("is-exporting-screen");
 
-  exportRoot.style.width = `${EXPORT_WIDTH}px`;
-  exportRoot.style.minWidth = `${EXPORT_WIDTH}px`;
-  exportRoot.style.maxWidth = `${EXPORT_WIDTH}px`;
-  exportRoot.style.background = "var(--modal-bg-color)";
-  exportRoot.style.borderRadius = "8px";
-  exportRoot.style.overflow = "visible";
-
-  // --- BODY ---
-  const body = document.createElement("div");
-  body.className = "modal__body";
-  body.style.maxHeight = "none";
-  body.style.overflow = "visible";
-
-  const { content } = renderModalResults();
-  body.appendChild(content);
-  exportRoot.appendChild(body);
-
-  // --- SANDBOX ---
-  const sandbox = document.createElement("div");
-  sandbox.style.position = "absolute";
-  sandbox.style.left = "-10000px";
-  sandbox.style.top = "0";
-  sandbox.style.height = "auto";
-  sandbox.style.width = `${EXPORT_WIDTH}px`;
-  sandbox.style.pointerEvents = "none";
-  sandbox.style.opacity = "0";
-
-  sandbox.appendChild(exportRoot);
-  document.body.appendChild(sandbox);
-
-  exportRoot.style.position = "static";
-  exportRoot.style.height = "auto";
-  exportRoot.style.maxHeight = "none";
-
-  // --- FORCE LAYOUT & MEASURE ---
-  const rect = exportRoot.getBoundingClientRect();
-  exportRoot.style.height = `${rect.height}px`;
-
-  // --- IMAGE RELOAD SAFETY (ОДНА СТРОКА) ---
-  exportRoot.querySelectorAll("img").forEach((img) => {
-    img.src = img.src;
-  });
-
-  // --- WAIT FOR IMAGES ---
-  await waitForImages(exportRoot);
-
-  // --- EXPORT ---
   try {
+    const exportRoot = document.createElement("div");
+    exportRoot.className = "modal__content";
+
+    exportRoot.style.background = "var(--modal-bg-color)";
+    exportRoot.style.borderRadius = "8px";
+    exportRoot.style.overflow = "visible";
+
+    const body = document.createElement("div");
+    body.className = "modal__body";
+    body.style.maxHeight = "none";
+    body.style.overflow = "visible";
+
+    const { content } = renderModalResults();
+    body.appendChild(content);
+    exportRoot.appendChild(body);
+
+    const sandbox = document.createElement("div");
+    sandbox.style.position = "absolute";
+    sandbox.style.left = "-10000px";
+    sandbox.style.top = "0";
+    sandbox.style.pointerEvents = "none";
+    sandbox.style.opacity = "0";
+
+    sandbox.appendChild(exportRoot);
+    document.body.appendChild(sandbox);
+
+    exportRoot.style.position = "static";
+    exportRoot.style.height = "auto";
+    exportRoot.style.maxHeight = "none";
+
+    const rect = exportRoot.getBoundingClientRect();
+    exportRoot.style.height = `${rect.height}px`;
+
+    exportRoot.querySelectorAll("img").forEach((img) => {
+      img.src = img.src;
+    });
+
+    await waitForImages(exportRoot);
+
     const dataUrl = await htmlToImage.toPng(exportRoot, {
       pixelRatio: 2,
       skipFonts: true,
     });
 
     downloadPng(dataUrl, "results.png");
-  } finally {
     sandbox.remove();
+  } finally {
+    document.documentElement.classList.remove("is-exporting-screen");
   }
 }

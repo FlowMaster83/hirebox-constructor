@@ -37,3 +37,29 @@ html.is-exporting-screen .modal__body {
   max-width: none !important;
 }
 
+html.is-exporting-screen .scale-row {
+  grid-template-columns: 200px 1fr !important;
+  grid-template-areas: "label value" !important;
+  row-gap: 0 !important;
+}
+
+html.is-exporting-screen .modal__body {
+  padding-left: 64px !important;
+  padding-right: 64px !important;
+}
+
+html.is-exporting-screen .result-row {
+  grid-template-columns: 200px 1fr !important;
+  column-gap: 24px !important;
+}
+
+html.is-exporting-screen .tick,
+html.is-exporting-screen .tick-line,
+html.is-exporting-screen .chart-track::before {
+  display: block !important;
+}
+
+html.is-exporting-screen {
+  width: 768px !important;
+  min-width: 768px !important;
+}
