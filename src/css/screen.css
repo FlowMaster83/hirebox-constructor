@@ -1,0 +1,39 @@
+/* screen.css */
+html.is-exporting-screen {
+  --screen-content-width: 728px; /* эталон 768 */
+}
+
+html.is-exporting-screen .layout {
+  width: var(--screen-content-width) !important;
+  max-width: var(--screen-content-width) !important;
+  min-width: var(--screen-content-width) !important;
+
+  margin-left: auto !important;
+  margin-right: auto !important;
+
+  padding-left: var(--layout-padding);
+  padding-right: var(--layout-padding);
+}
+
+html.is-exporting-screen .modal__wrap {
+  width: auto !important;
+  max-width: none !important;
+
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+html.is-exporting-screen .modal__content {
+  width: var(--screen-content-width) !important;
+  max-width: var(--screen-content-width) !important;
+  min-width: var(--screen-content-width) !important;
+}
+
+html.is-exporting-screen body {
+  overflow-x: hidden;
+}
+
+html.is-exporting-screen .modal__body {
+  max-width: none !important;
+}
+
