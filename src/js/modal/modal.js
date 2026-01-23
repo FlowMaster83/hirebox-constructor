@@ -18,7 +18,6 @@ function resetResultButton() {
   btn.replaceWith(clone);
 }
 
-
 /* =========================================================
    CONFIG
 ========================================================= */
@@ -74,8 +73,8 @@ function createModal() {
       </div>
 
       <div class="modal-actions">
-        <button class="modal-action-btn" data-action="print">PRINT</button>
         <button class="modal-action-btn" data-action="png">SCREEN</button>
+        <button class="modal-action-btn" data-action="print">PRINT</button>
       </div>
     </div>
   `;
@@ -214,4 +213,3 @@ window.addEventListener("resize", () => {
     }
   }
 });
-
