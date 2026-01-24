@@ -74,10 +74,10 @@ button[data-marker] {
 /* ===== FIX ДЛЯ МОБИЛКИ ===== */
 @media (max-width: 480px) {
   button[data-marker] {
-    font-size: 14px;        /* текст снова виден */
-    line-height: 1;         /* без сдвига */
-    min-width: 32px;        /* не схлопывается */
-    padding: 0 6px;         /* компактно, но читаемо */
+    font-size: 14px;
+    line-height: 1;
+    min-width: 32px;
+    padding: 0 6px;
   }
 }
 
