@@ -11,6 +11,9 @@ function syncResultButton(isOpen) {
 }
 
 function resetResultButton() {
+  // ❗ если модалка открыта — НЕЛЬЗЯ трогать кнопку
+  if (isModalOpen()) return;
+
   const btn = document.querySelector(".header-result-btn");
   if (!btn) return;
 
@@ -162,7 +165,7 @@ export function closeModal() {
 
   modalRoot.querySelector(".modal__body").innerHTML = "";
 
-  resetResultButton();
+  resetResultButton(false);
 
   // восстановление скролла
   document.body.style.position = "";
@@ -204,12 +207,7 @@ window.addEventListener("resize", () => {
   }
 
   // 🔑 КАНОНИЧЕСКАЯ СИНХРОНИЗАЦИЯ
-  if (isModalAllowed()) {
-    modalAutoClosed = false;
-
-    // если модалка не открыта — кнопка ОБЯЗАНА быть "ДО клика"
-    if (!isModalOpen()) {
-      resetResultButton();
-    }
+  if (isModalAllowed() && !isModalOpen()) {
+    resetResultButton(); // здесь ОК
   }
 });
