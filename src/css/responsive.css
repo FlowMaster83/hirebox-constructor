@@ -184,7 +184,8 @@
 
   .scale-row .actions button[data-marker="circle"]::after,
   .scale-row .actions button[data-marker="dash"]::after,
-  .scale-row .actions button[data-marker="star"]::after {
+  .scale-row .actions button[data-marker="star"]::after,
+  .scale-row .actions button[data-marker="check"]::after {
     content: none;
   }
 
@@ -241,10 +242,22 @@
     width: 100%;
     height: 100%;
   }
+
+  /* ---------- STAR ICON: make bigger ---------- */
+
+  .scale-row .actions button[data-marker="star"] .btn__icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* ---------- CHECK BUTTON ICON ---------- */
+
+  .scale-row .actions button[data-marker="check"] .btn__icon {
+    display: inline-flex;
+    width: 16px;
+    height: 16px;
+  }
 }
-
-
-
 
 @media (max-width: 440px) {
   main {

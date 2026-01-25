@@ -61,9 +61,15 @@ export function createScaleRow(labelTitle, container) {
     <span class="btn__label">STAR</span>
   </button>
 
-  <button data-marker="check" data-label="CHECK" data-short="✓">
-    CHECK
-  </button>
+<button data-marker="check" data-label="CHECK" data-short="✓">
+  <span class="btn__icon" aria-hidden="true">
+    <svg viewBox="0 0 512 512">
+      <use href="#icon-check"></use>
+    </svg>
+  </span>
+  <span class="btn__label">CHECK</span>
+</button>
+
 
   <button class="clear-btn" type="button">CLEAR</button>
 
