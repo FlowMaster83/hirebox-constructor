@@ -33,16 +33,44 @@ export function createScaleRow(labelTitle, container) {
       />
     </div>
 
-    <div class="actions">
-      <button data-marker="circle" data-label="CIRCLE" data-short="C">CIRCLE</button>
-      <button data-marker="dash" data-label="DASH" data-short="D">DASH</button>
-      <button data-marker="star" data-label="STAR" data-short="S">STAR</button>
-      <button data-marker="check" data-label="CHECK" data-short="✓">CHECK</button>
-      <button class="clear-btn" type="button">CLEAR</button>
+<div class="actions">
+  <button data-marker="circle" data-label="CIRCLE" data-short="C">
+    <span class="btn__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24">
+        <use href="#icon-circle"></use>
+      </svg>
+    </span>
+    <span class="btn__label">CIRCLE</span>
+  </button>
 
-      <button class="arrow-btn arrow-left" type="button">←</button>
-      <button class="arrow-btn arrow-right" type="button">→</button>
-    </div>
+  <button data-marker="dash" data-label="DASH" data-short="D">
+    <span class="btn__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24">
+        <use href="#icon-dash"></use>
+      </svg>
+    </span>
+    <span class="btn__label">DASH</span>
+  </button>
+
+  <button data-marker="star" data-label="STAR" data-short="S">
+    <span class="btn__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24">
+        <use href="#icon-star"></use>
+      </svg>
+    </span>
+    <span class="btn__label">STAR</span>
+  </button>
+
+  <button data-marker="check" data-label="CHECK" data-short="✓">
+    CHECK
+  </button>
+
+  <button class="clear-btn" type="button">CLEAR</button>
+
+  <button class="arrow-btn arrow-left" type="button">←</button>
+  <button class="arrow-btn arrow-right" type="button">→</button>
+</div>
+
   `;
 
   const input = row.querySelector(".user-input");

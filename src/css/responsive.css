@@ -1,5 +1,9 @@
 /* responsive.css */
 
+.btn__icon {
+  display: none;
+}
+
 /* =========================================================
    ≤ 1024px — tablet
 ========================================================= */
@@ -207,17 +211,32 @@
   .tick.tick--major {
     display: block;
   }
-}
 
-/* =========================================================
-   ≤ 480px — logo
-========================================================= */
-
-@media (max-width: 480px) {
   .main-logo-text {
     font-size: 10px;
   }
+
+  .btn__label {
+    display: none;
+  }
+
+  .btn__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 18px;
+    height: 18px;
+  }
+
+  .btn__icon svg {
+    width: 100%;
+    height: 100%;
+  }
 }
+
+
+
 
 @media (max-width: 440px) {
   main {
