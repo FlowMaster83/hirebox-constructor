@@ -180,6 +180,14 @@
     height: 100%;
   }
 
+  /* ---------- ICON MARKERS: disable text labels ---------- */
+
+  .scale-row .actions button[data-marker="circle"]::after,
+  .scale-row .actions button[data-marker="dash"]::after,
+  .scale-row .actions button[data-marker="star"]::after {
+    content: none;
+  }
+
   /* ---------- CLEAR ---------- */
 
   .scale-row .clear-btn {
