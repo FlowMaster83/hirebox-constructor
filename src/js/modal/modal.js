@@ -76,8 +76,28 @@ function createModal() {
       </div>
 
       <div class="modal-actions">
-        <button class="modal-action-btn" data-action="png">SCREEN</button>
-        <button class="modal-action-btn" data-action="print">PRINT</button>
+      
+       <button
+  class="modal-action-btn modal-action-btn--icon"
+  data-action="screen"
+  aria-label="Make screenshot"
+>
+  <svg viewBox="0 0 2048 2048" aria-hidden="true">
+    <use href="#icon-screen"></use>
+  </svg>
+</button>
+
+        
+        <button
+  class="modal-action-btn modal-action-btn--icon"
+  data-action="print"
+  aria-label="Print results"
+>
+  <svg viewBox="0 0 512 512" aria-hidden="true">
+    <use href="#icon-print"></use>
+  </svg>
+</button>
+
       </div>
     </div>
   `;

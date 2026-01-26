@@ -51,6 +51,19 @@
   .header-result-btn {
     display: none;
   }
+
+  /* ---------- HEADER SCREEN ICON ---------- */
+
+  .header-btn--icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header-btn--icon svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 @media (max-width: 640px) and (min-width: 481px) {

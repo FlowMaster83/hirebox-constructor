@@ -133,6 +133,18 @@
 /* =========================================================
    MODAL ACTION BUTTON
 ========================================================= */
+/* ---------- MODAL ACTION ICONS ---------- */
+
+.modal-action-btn--icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-action-btn--icon svg {
+  width: 20px;
+  height: 20px;
+}
 
 .modal-action-btn {
   height: 44px;
@@ -240,7 +252,7 @@
   color: var(--main-red-color);
 }
 
-.scale-head-levels > .level {
+.scale-head-levels>.level {
   min-width: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -270,9 +282,17 @@
   transform: none;
 }
 
-.scale-head-values .v33 { left: 33%; }
-.scale-head-values .v66 { left: 66%; }
-.scale-head-values .v100 { left: 100%; }
+.scale-head-values .v33 {
+  left: 33%;
+}
+
+.scale-head-values .v66 {
+  left: 66%;
+}
+
+.scale-head-values .v100 {
+  left: 100%;
+}
 
 /* =========================================================
    RESULTS
